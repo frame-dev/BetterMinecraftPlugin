@@ -1,0 +1,5 @@
+name: BetterMinecraft
+version: '${version}'
+
+main: ch.framedev.betterminecraft.BetterMinecraft
+api-version: '26.1'

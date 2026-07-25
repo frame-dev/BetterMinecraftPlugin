@@ -1,0 +1,1468 @@
+VANILLA+ SPIGOT 26.2 PLUGIN TODO
+=================================
+
+TARGET PLATFORM
+===============
+
+[x] Minecraft Java Edition 26.2
+[x] Spigot 26.2
+[x] Spigot API 26.2-R0.1-SNAPSHOT
+[x] plugin.yml api-version: '26.2'
+[x] Java 25 JDK
+[x] Maven compiler release 25
+[x] Server-side only
+[x] No NMS or CraftBukkit dependencies
+[x] Paper 26.2 compatible where it preserves Spigot behavior
+
+MAVEN TARGET
+------------
+
+<properties>
+    <maven.compiler.release>25</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+</properties>
+
+<repositories>
+    <repository>
+        <id>spigot-repo</id>
+        <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+    </repository>
+</repositories>
+
+<dependencies>
+    <dependency>
+        <groupId>org.spigotmc</groupId>
+        <artifactId>spigot-api</artifactId>
+        <version>26.2-R0.1-SNAPSHOT</version>
+        <scope>provided</scope>
+    </dependency>
+</dependencies>
+
+PLUGIN.YML TARGET
+-----------------
+
+name: VanillaPlus
+version: '${project.version}'
+main: ch.framedev.vanillaplus.VanillaPlusPlugin
+api-version: '26.2'
+author: FrameDev
+description: Server-side Vanilla+ improvements for Minecraft Java 26.2
+
+
+Goal
+----
+Improve the Minecraft vanilla survival experience using only server-side
+Spigot-compatible features.
+
+No client mods are required.
+No custom launcher is required.
+No modded blocks, entities, dimensions, or biomes are required.
+Optional resource-pack features should remain disabled by default.
+
+
+1. CUSTOM RECIPES
+=================
+
+Stone Variant Tools
+-------------------
+[x] Granite Sword
+[x] Granite Pickaxe
+[x] Granite Axe
+[x] Granite Shovel
+[x] Granite Hoe
+
+[x] Andesite Sword
+[x] Andesite Pickaxe
+[x] Andesite Axe
+[x] Andesite Shovel
+[x] Andesite Hoe
+
+[x] Diorite Sword
+[x] Diorite Pickaxe
+[x] Diorite Axe
+[x] Diorite Shovel
+[x] Diorite Hoe
+
+[x] Tuff Sword
+[x] Tuff Pickaxe
+[x] Tuff Axe
+[x] Tuff Shovel
+[x] Tuff Hoe
+
+Recipe System
+-------------
+[x] Add shaped recipes
+[ ] Add shapeless recipes
+[x] Register recipes during plugin startup
+[x] Prevent duplicate recipe registration
+[ ] Add permission requirements for selected recipes
+[ ] Add configuration option for every recipe
+[ ] Add recipe discovery through advancements
+[ ] Add /vanillaplus recipes
+[ ] Add recipe GUI
+[x] Test all recipes
+[ ] Support recipe reload without restarting the server
+
+Additional Vanilla-Friendly Recipes
+-----------------------------------
+[ ] Saddle recipe
+[ ] Name Tag recipe
+[ ] Bell recipe
+[ ] Cobweb recipe
+[ ] Chainmail armor recipes
+[ ] Horse armor recipes
+[ ] Trident repair recipe
+[ ] Elytra repair recipe
+[ ] Totem repair recipe with expensive ingredients
+[ ] Wool to String recipe
+[ ] Rotten Flesh to Leather smelting recipe
+[ ] Charcoal Block recipe
+[ ] Glow Ink Sac recipe
+[ ] Crying Obsidian recipe
+[ ] Calcite recipe
+[ ] Tuff recipe
+[ ] Packed Mud recycling recipe
+[ ] Ice compression and decompression recipes
+[ ] Quartz block decompression recipe
+[ ] Slab and stair recycling recipes
+
+
+2. CUSTOM ITEMS
+===============
+
+All custom items must use normal Minecraft materials with:
+- ItemMeta
+- CustomModelData only when optional
+- PersistentDataContainer
+- Lore
+- Attributes
+- Enchantments
+- Item flags
+
+[ ] Create CustomItemManager
+[ ] Store custom item IDs using PersistentDataContainer
+[ ] Prevent custom items from losing their identity
+[ ] Add configurable display names
+[ ] Add configurable lore
+[ ] Add configurable enchantment glow
+[ ] Add configurable attribute modifiers
+[ ] Add custom item crafting support
+[ ] Add custom item drop support
+[ ] Add custom item serialization
+[ ] Add custom item validation
+[ ] Add /vanillaplus give <player> <item> [amount]
+
+Vanilla-Like Item Ideas
+-----------------------
+[ ] Mining Charm
+[ ] Farming Charm
+[ ] Fishing Charm
+[ ] Explorer Compass
+[ ] Recall Compass
+[ ] Portable Crafting Table
+[ ] Portable Ender Chest
+[ ] Repair Kit
+[ ] Reinforced Shield
+[ ] Reinforced Fishing Rod
+[ ] Lumberjack Axe
+[ ] Excavator Shovel
+[ ] Smelter Pickaxe
+[ ] Magnet Charm
+[ ] Night Vision Charm
+[ ] Fire Resistance Charm
+[ ] Water Breathing Charm
+
+
+3. QUALITY OF LIFE
+==================
+
+Sleeping
+--------
+[ ] One-player sleep
+[ ] Configurable sleep percentage
+[ ] Skip thunderstorms when sleeping
+[ ] Show sleeping player count
+[ ] Cancel sleep skip when hostile mobs are nearby
+[ ] Optional phantom prevention after successful sleep
+
+Inventory
+---------
+[ ] Inventory sorting command
+[ ] Chest sorting command
+[ ] Double-click sorting button
+[ ] Automatic tool replacement
+[ ] Automatic block replacement
+[ ] Shift-right-click armor swapping
+[ ] Deposit matching items into nearby containers
+[ ] Restock inventory from nearby containers
+[ ] Prevent accidental valuable-item drops
+[ ] Confirm dropping favorited items
+[ ] Mark items as favorites using PersistentDataContainer
+
+Crafting
+--------
+[ ] Craft items directly from nearby containers
+[ ] Bulk crafting command
+[ ] Crafting history
+[ ] Recipe search GUI
+[ ] Show missing ingredients
+
+Furnaces
+--------
+[ ] Furnace progress display
+[ ] Furnace owner tracking
+[ ] Furnace XP information
+[ ] Optional automatic fuel insertion
+[ ] Optional automatic output collection
+[ ] Configurable furnace speed multiplier
+[ ] Keep default speed as the standard value
+
+Doors and Gates
+---------------
+[x] Double-door synchronization
+[x] Double-fence-gate synchronization
+[ ] Automatic door closing
+[ ] Configurable close delay
+[ ] Iron door interaction with permissions
+
+Other QoL
+---------
+[ ] Fast leaf decay
+[ ] Tree chopping while sneaking
+[ ] Replant saplings automatically
+[ ] Replant crops automatically
+[ ] Right-click crop harvesting
+[ ] Right-click honey harvesting
+[ ] Right-click shearing
+[ ] Better lead handling
+[ ] Better minecart pickup
+[ ] Better boat pickup
+[ ] Prevent farmland trampling
+[ ] Prevent friendly animal damage while holding breeding food
+[ ] Show remaining durability
+[ ] Warn when tools are close to breaking
+[ ] Show coordinates above the hotbar
+[ ] Compass direction display
+[ ] Death coordinates message
+[ ] Last death location command
+
+
+4. GRAVES AND DEATH
+===================
+
+[ ] Create grave on player death
+[ ] Store inventory inside grave
+[ ] Store armor inside grave
+[ ] Store off-hand item inside grave
+[ ] Store experience inside grave
+[ ] Protect grave for its owner
+[ ] Add configurable protection duration
+[ ] Add grave expiration
+[ ] Drop contents when grave expires
+[ ] Add hologram using ArmorStand or TextDisplay
+[ ] Add grave location message
+[ ] Add /grave locate
+[ ] Add /grave list
+[ ] Add /grave recover for administrators
+[ ] Prevent grave creation in lava when possible
+[ ] Find nearby safe grave location
+[ ] Support deaths in the Nether
+[ ] Support deaths in the End
+[ ] Save graves persistently
+[ ] Restore graves after server restart
+
+
+5. HOMES, TELEPORTATION, AND WAYSTONES
+======================================
+
+Homes
+-----
+[ ] /sethome
+[ ] /home
+[ ] /delhome
+[ ] /homes
+[ ] Configurable home limits
+[ ] Permission-based home limits
+[ ] Teleport warmup
+[ ] Cancel teleport on movement
+[ ] Cancel teleport on damage
+[ ] Configurable cooldown
+[ ] Safe destination validation
+
+TPA
+---
+[ ] /tpa
+[ ] /tpahere
+[ ] /tpaccept
+[ ] /tpdeny
+[ ] Request timeout
+[ ] Ignore teleport requests
+[ ] Configurable cooldown
+[ ] Safe teleport validation
+
+Waystones
+---------
+[ ] Use Lodestone or another vanilla block as a waystone
+[ ] Register waystones by right-clicking
+[ ] Open waystone GUI
+[ ] Public waystones
+[ ] Private waystones
+[ ] Shared waystones
+[ ] Permission-based waystone limits
+[ ] Experience cost
+[ ] Item cost
+[ ] Teleport cooldown
+[ ] Cross-world teleport configuration
+[ ] Destroyed waystone cleanup
+[ ] Persistent waystone storage
+
+
+6. BETTER MOBS
+==============
+
+Mob Variants
+------------
+Use normal Bukkit entity types with equipment, attributes, potion effects,
+custom names, sounds, particles, and PersistentDataContainer tags.
+
+[ ] Armored Zombie
+[ ] Miner Zombie
+[ ] Frozen Zombie
+[ ] Swamp Zombie
+[ ] Desert Zombie
+[ ] Skeleton Archer
+[ ] Heavy Skeleton
+[ ] Frost Skeleton
+[ ] Poison Skeleton
+[ ] Elite Spider
+[ ] Cave Spider Queen
+[ ] Charged Creeper variant
+[ ] Enderman Stalker
+[ ] Blaze Captain
+[ ] Piglin Guard
+[ ] Pillager Captain variant
+[ ] Drowned Captain
+[ ] Ancient Guardian
+
+Mob System
+----------
+[ ] Create CustomMobManager
+[ ] Tag mobs with PersistentDataContainer
+[ ] Configure spawn chance
+[ ] Configure biome restrictions
+[ ] Configure world restrictions
+[ ] Configure minimum distance from spawn
+[ ] Configure equipment
+[ ] Configure health
+[ ] Configure damage
+[ ] Configure movement speed
+[ ] Configure potion effects
+[ ] Configure custom drops
+[ ] Configure experience drops
+[ ] Prevent vanilla equipment drops when required
+[ ] Save persistent boss mobs
+[ ] Remove invalid custom mobs after reload
+
+
+7. MINI-BOSSES
+==============
+
+[ ] Zombie Brute
+[ ] Skeleton Commander
+[ ] Spider Queen
+[ ] Creeper King
+[ ] Drowned Captain
+[ ] Blaze General
+[ ] Piglin Warlord
+[ ] Enderman Lord
+[ ] Ancient Guardian
+[ ] Ravager Champion
+
+Boss Features
+-------------
+[ ] BossBar support
+[ ] Boss phases
+[ ] Configurable abilities
+[ ] Ability cooldowns
+[ ] Summon minions
+[ ] Area attacks
+[ ] Projectile attacks
+[ ] Potion-effect attacks
+[ ] Teleport attacks
+[ ] Enrage phase
+[ ] Boss announcements
+[ ] Boss music using vanilla sounds
+[ ] Contribution tracking
+[ ] Individual loot
+[ ] Shared loot
+[ ] Configurable respawn time
+[ ] Spawn command
+[ ] Remove command
+[ ] Edit command
+[ ] Save bosses to YAML or database
+
+
+8. WORLD EVENTS
+===============
+
+All events must use normal worlds, weather, entities, particles, sounds,
+boss bars, scheduled tasks, and Bukkit events.
+
+[ ] Blood Moon
+[ ] Harvest Moon
+[ ] Thunderstorm invasion
+[ ] Pillager raid event
+[ ] Undead night
+[ ] Spider infestation
+[ ] Slime rain
+[ ] Meteor impact simulation
+[ ] Treasure hunt
+[ ] Fishing competition
+[ ] Mining competition
+[ ] Mob hunting competition
+[ ] Traveling merchant event
+[ ] Double crop growth event
+[ ] Double mob-drop event
+[ ] Double experience event
+
+Event System
+------------
+[ ] Random event scheduler
+[ ] Manual event start command
+[ ] Manual event stop command
+[ ] Event cooldown
+[ ] World whitelist
+[ ] Event announcements
+[ ] BossBar timer
+[ ] Participation tracking
+[ ] Reward distribution
+[ ] Event history
+[ ] Persistent active-event state
+[ ] Restore event after restart when possible
+
+
+9. BETTER LOOT
+==============
+
+[ ] Override or supplement chest loot with LootGenerateEvent
+[ ] Configure loot per structure type
+[ ] Configure rarity
+[ ] Configure minimum and maximum amounts
+[ ] Add custom items to loot
+[ ] Add treasure maps
+[ ] Add enchanted books
+[ ] Add cosmetic items
+[ ] Add rare food
+[ ] Add boss summoning items
+[ ] Add keys
+[ ] Add loot crates represented by vanilla containers
+[ ] Prevent duplicate unique loot
+[ ] Add luck-based modifiers
+[ ] Add world-based loot tables
+[ ] Add biome-based loot tables
+[ ] Add permission-based bonus loot
+
+
+10. TREASURE MAPS
+=================
+
+[ ] Generate treasure locations
+[ ] Use normal filled maps
+[ ] Store treasure ID using PersistentDataContainer
+[ ] Add map markers
+[ ] Generate buried treasure chest
+[ ] Generate guarded treasure
+[ ] Add treasure rarity levels
+[ ] Add configurable search radius
+[ ] Add expiration
+[ ] Prevent duplicate treasure completion
+[ ] Track treasure ownership
+[ ] Add party treasure sharing
+[ ] Add /treasure locate for administrators
+
+
+11. FISHING EXPANSION
+=====================
+
+Use normal fish items, tropical fish variants, custom names, lore,
+PersistentDataContainer, particles, sounds, and fishing events.
+
+[ ] Fish rarity system
+[ ] Biome-specific catches
+[ ] Time-specific catches
+[ ] Weather-specific catches
+[ ] World-specific catches
+[ ] Junk items
+[ ] Treasure items
+[ ] Fishing crates
+[ ] Custom fish sizes
+[ ] Personal fishing records
+[ ] Server fishing records
+[ ] Fishing streaks
+[ ] Fishing competitions
+[ ] Configurable catch chances
+[ ] Luck of the Sea integration
+[ ] Lure integration
+[ ] Anti-AFK fishing checks
+[ ] Fishing journal GUI
+
+
+12. FARMING EXPANSION
+=====================
+
+Only use existing crops, items, blocks, display entities, and custom metadata.
+
+[ ] Right-click harvesting
+[ ] Automatic replanting
+[ ] Crop quality system
+[ ] Giant crop chance represented by item rewards
+[ ] Rare seed drops
+[ ] Fertilizer item using bone meal mechanics
+[ ] Compost quality levels
+[ ] Seasonal growth multipliers
+[ ] Farming experience
+[ ] Farming quests
+[ ] Harvest streaks
+[ ] Farming competitions
+[ ] Scarecrow represented by ArmorStand or block structure
+[ ] Scarecrow protects crops from trampling
+[ ] Configurable crop growth rates
+
+
+13. SKILLS
+==========
+
+Keep bonuses small so survival remains balanced.
+
+[ ] Mining skill
+[ ] Woodcutting skill
+[ ] Farming skill
+[ ] Fishing skill
+[ ] Combat skill
+[ ] Excavation skill
+[ ] Exploration skill
+[ ] Brewing skill
+[ ] Enchanting skill
+
+Skill Features
+--------------
+[ ] Experience per action
+[ ] Configurable experience formula
+[ ] Level-up messages
+[ ] Level-up sounds
+[ ] Skill GUI
+[ ] Skill leaderboard
+[ ] Skill reset command
+[ ] Administrator skill editing
+[ ] Maximum skill levels
+[ ] Permission multipliers
+[ ] Small passive bonuses
+[ ] Disable individual bonuses
+[ ] Persistent player data
+
+Balanced Bonus Ideas
+--------------------
+[ ] Small chance for double ore drops
+[ ] Small chance for double logs
+[ ] Small chance for double crops
+[ ] Slightly improved fishing luck
+[ ] Slightly increased mob experience
+[ ] Slightly reduced tool durability loss
+[ ] Slightly faster furnace processing
+[ ] Small chance to preserve potion ingredients
+
+
+14. QUESTS
+==========
+
+[ ] Daily quests
+[ ] Weekly quests
+[ ] Repeatable quests
+[ ] One-time quests
+[ ] Tutorial quests
+[ ] Mining quests
+[ ] Farming quests
+[ ] Fishing quests
+[ ] Combat quests
+[ ] Exploration quests
+[ ] Crafting quests
+[ ] Brewing quests
+[ ] Enchanting quests
+
+Quest Objectives
+----------------
+[ ] Break blocks
+[ ] Place blocks
+[ ] Craft items
+[ ] Smelt items
+[ ] Kill mobs
+[ ] Breed animals
+[ ] Tame animals
+[ ] Catch fish
+[ ] Harvest crops
+[ ] Travel distance
+[ ] Visit biome
+[ ] Visit structure
+[ ] Sleep
+[ ] Trade with villagers
+[ ] Complete advancement
+
+Quest Rewards
+-------------
+[ ] Items
+[ ] Experience
+[ ] Skill experience
+[ ] Commands
+[ ] Permissions
+[ ] Currency through Vault when installed
+[ ] Custom items
+[ ] Loot keys
+
+Quest System
+------------
+[ ] Quest GUI
+[ ] Quest tracking
+[ ] Progress action bar
+[ ] Progress boss bar
+[ ] Automatic quest rotation
+[ ] Configurable reset time
+[ ] Quest reroll
+[ ] Party progress sharing
+[ ] Persistent quest data
+
+
+15. ADVANCEMENTS AND ACHIEVEMENTS
+=================================
+
+[ ] Custom achievement system
+[ ] Achievement categories
+[ ] Achievement GUI
+[ ] Achievement rewards
+[ ] Hidden achievements
+[ ] Progressive achievements
+[ ] Server-first achievements
+[ ] Achievement announcements
+[ ] Achievement statistics
+[ ] Track vanilla advancements
+[ ] Reward selected vanilla advancements
+[ ] Prevent repeated rewards
+[ ] Persistent achievement data
+
+
+16. VILLAGER IMPROVEMENTS
+=========================
+
+[ ] Improve Wandering Trader trades
+[ ] Add rotating trader inventory
+[ ] Add biome-related trader inventory
+[ ] Add rare trader items
+[ ] Add player-head cosmetics
+[ ] Add treasure maps
+[ ] Add mob drops
+[ ] Add building materials
+[ ] Add configurable prices
+[ ] Prevent overpowered trades
+[ ] Add trade cooldowns
+[ ] Add reputation discounts
+[ ] Add villager restocking configuration
+[ ] Protect important villagers
+[ ] Name villagers automatically
+[ ] Villager information GUI
+[ ] Villager trade logging
+
+
+17. TRADING AND PLAYER ECONOMY
+=============================
+
+These features must work without Vault, while optionally integrating with it.
+
+Player Shops
+------------
+[ ] Chest shop system
+[ ] Sign shop system
+[ ] Item-for-item shops
+[ ] Currency shops
+[ ] Owner notifications
+[ ] Shop transaction logs
+[ ] Shop limits
+[ ] Shop protection
+[ ] Out-of-stock display
+[ ] Administrator shop support
+
+Trading
+-------
+[ ] /trade <player>
+[ ] Secure trade GUI
+[ ] Item confirmation
+[ ] Experience trading
+[ ] Currency trading through Vault
+[ ] Countdown before completion
+[ ] Cancel trade on movement or damage
+[ ] Transaction logs
+[ ] Anti-scam validation
+
+
+18. BACKPACKS
+=============
+
+Use normal inventory GUIs and custom items.
+
+[ ] Small backpack
+[ ] Medium backpack
+[ ] Large backpack
+[ ] Configurable backpack sizes
+[ ] Backpack crafting recipes
+[ ] Store backpack ID using PersistentDataContainer
+[ ] Save contents persistently
+[ ] Prevent backpack nesting
+[ ] Prevent shulker nesting
+[ ] Prevent backpack duplication
+[ ] Backpack ownership
+[ ] Shared backpacks
+[ ] Backpack rename
+[ ] Backpack lock
+[ ] Administrator recovery command
+
+
+19. MAIL SYSTEM
+===============
+
+[ ] /mail send <player>
+[ ] Mailbox GUI
+[ ] Send text messages
+[ ] Send items
+[ ] Send experience
+[ ] Optional currency attachment
+[ ] Offline delivery
+[ ] Unread mail notification
+[ ] Mail expiration
+[ ] Return expired attachments
+[ ] Blocked sender list
+[ ] Administrator mail
+[ ] Server-wide announcements
+[ ] Persistent mail storage
+
+
+20. PARTIES
+===========
+
+[ ] Create party
+[ ] Invite player
+[ ] Accept invitation
+[ ] Leave party
+[ ] Kick member
+[ ] Transfer ownership
+[ ] Party chat
+[ ] Party teleport
+[ ] Shared quest progress
+[ ] Shared boss contribution
+[ ] Shared treasure access
+[ ] Friendly-fire setting
+[ ] Party member limit
+[ ] Persistent parties
+[ ] Party GUI
+
+
+21. CLAIMS AND PROTECTION
+========================
+
+[ ] Chunk-based claims
+[ ] Claim blocks
+[ ] Trust players
+[ ] Container access permission
+[ ] Build permission
+[ ] Door permission
+[ ] Redstone permission
+[ ] Animal interaction permission
+[ ] Villager interaction permission
+[ ] PvP setting
+[ ] Explosion setting
+[ ] Fire spread setting
+[ ] Mob griefing setting
+[ ] Claim expiration
+[ ] Claim visualization with particles
+[ ] Claim information command
+[ ] Administrator claim override
+[ ] Persistent claim storage
+
+
+22. CHAT AND SOCIAL FEATURES
+============================
+
+[ ] Local chat
+[ ] Global chat
+[ ] Party chat
+[ ] Staff chat
+[ ] Private messages
+[ ] Reply command
+[ ] Ignore command
+[ ] Mention notifications
+[ ] Item display in chat
+[ ] Inventory display in chat
+[ ] Ender Chest display in chat
+[ ] Coordinate sharing
+[ ] Death message improvements
+[ ] Join and quit messages
+[ ] First-join message
+[ ] Playtime display
+[ ] AFK system
+[ ] Chat formatting
+[ ] MiniMessage support through Adventure when available
+[ ] PlaceholderAPI integration when installed
+
+
+23. PLAYER STATISTICS
+=====================
+
+[ ] Playtime
+[ ] Blocks broken
+[ ] Blocks placed
+[ ] Mobs killed
+[ ] Player deaths
+[ ] Distance traveled
+[ ] Fish caught
+[ ] Crops harvested
+[ ] Items crafted
+[ ] Items smelted
+[ ] Villager trades
+[ ] Bosses killed
+[ ] Quests completed
+[ ] Treasure found
+[ ] Skill levels
+[ ] Statistics GUI
+[ ] Leaderboards
+[ ] Seasonal leaderboards
+[ ] Resettable leaderboards
+[ ] Holographic leaderboards using display entities
+
+
+24. DAILY REWARDS
+=================
+
+[ ] Daily login reward
+[ ] Login streak
+[ ] Configurable reward calendar
+[ ] Missed-day behavior
+[ ] Reward preview GUI
+[ ] Item rewards
+[ ] Experience rewards
+[ ] Currency rewards
+[ ] Command rewards
+[ ] Permission rewards
+[ ] Streak milestones
+[ ] Anti-multi-account protections
+[ ] Persistent reward data
+
+
+25. RANDOM AMBIENT FEATURES
+===========================
+
+Use particles, sounds, display entities, ArmorStands, and scheduled tasks.
+
+[ ] Falling leaf particles
+[ ] Firefly particles at night
+[ ] Cave ambience
+[ ] Forest ambience
+[ ] Ocean ambience
+[ ] Desert wind ambience
+[ ] Nether ash particles
+[ ] End particles
+[ ] Biome-dependent ambient sounds
+[ ] Rare shooting stars using particles
+[ ] Campfire smoke improvements
+[ ] Footstep particles
+[ ] Cold-biome breath particles
+[ ] Disable ambient effects per player
+[ ] Performance configuration
+
+
+26. SEASONS
+===========
+
+Seasons must simulate changes without adding custom biomes or changing
+the Minecraft client.
+
+[ ] Spring
+[ ] Summer
+[ ] Autumn
+[ ] Winter
+[ ] Configurable season duration
+[ ] Season calendar
+[ ] Season command
+[ ] Crop growth multipliers
+[ ] Animal breeding modifiers
+[ ] Weather modifiers
+[ ] Fishing modifiers
+[ ] Mob-spawn modifiers
+[ ] Seasonal particles
+[ ] Seasonal sounds
+[ ] Snow placement during winter
+[ ] Snow cleanup after winter
+[ ] Autumn leaf particles
+[ ] Seasonal event integration
+[ ] Per-world season settings
+
+
+27. ENCHANTMENT-LIKE ABILITIES
+==============================
+
+Implement abilities with item metadata and Bukkit events.
+Do not register fake client-side enchantments.
+
+[ ] Vein Miner
+[ ] Tree Feller
+[ ] Auto Smelt
+[ ] Telekinesis
+[ ] Excavator
+[ ] Magnet
+[ ] Soulbound
+[ ] Experience Boost
+[ ] Crop Harvester
+[ ] Replanting
+[ ] Mob Head Hunter
+[ ] Lightning Strike chance
+[ ] Life Steal with strict limits
+[ ] Poison chance
+[ ] Frost effect
+[ ] Smelting Touch
+
+Ability System
+--------------
+[ ] Store ability IDs in PersistentDataContainer
+[ ] Ability levels
+[ ] Ability cooldowns
+[ ] Permission requirements
+[ ] World blacklist
+[ ] Material restrictions
+[ ] Tool restrictions
+[ ] Conflict system
+[ ] Anvil application
+[ ] Custom book items
+[ ] Ability removal
+[ ] Configuration for every ability
+
+
+28. MOB HEADS AND COLLECTIBLES
+=============================
+
+[ ] Player head drops
+[ ] Mob head drops
+[ ] Configurable drop chances
+[ ] Looting enchantment integration
+[ ] Charged Creeper integration
+[ ] Head collection GUI
+[ ] Collection completion rewards
+[ ] Rare head variants
+[ ] Boss trophies
+[ ] Fish collection
+[ ] Music disc collection
+[ ] Banner pattern collection
+[ ] Pottery sherd collection
+[ ] Persistent collection data
+
+
+29. COMMANDS
+============
+
+Main Commands
+-------------
+[ ] /vanillaplus
+[ ] /vanillaplus help
+[ ] /vanillaplus reload
+[ ] /vanillaplus version
+[ ] /vanillaplus recipes
+[ ] /vanillaplus items
+[ ] /vanillaplus give
+[ ] /vanillaplus mobs
+[ ] /vanillaplus bosses
+[ ] /vanillaplus events
+[ ] /vanillaplus quests
+[ ] /vanillaplus skills
+[ ] /vanillaplus debug
+
+Command Requirements
+--------------------
+[ ] Tab completion
+[ ] Permission checks
+[ ] Console support
+[ ] Command block support where appropriate
+[ ] Clear usage messages
+[ ] MiniMessage or legacy color support
+[ ] Configurable messages
+[ ] Localization support
+[ ] Cooldowns
+[ ] Confirmation for dangerous commands
+
+
+30. ADMINISTRATION
+==================
+
+[ ] Administrator GUI
+[ ] Player data viewer
+[ ] Player data editor
+[ ] Custom item browser
+[ ] Custom mob browser
+[ ] Boss editor
+[ ] Quest editor
+[ ] Loot editor
+[ ] Recipe editor
+[ ] Event controller
+[ ] Waystone manager
+[ ] Grave manager
+[ ] Claim manager
+[ ] Debug information
+[ ] Performance statistics
+[ ] Error report command
+[ ] Configuration validation
+[ ] Automatic backup before data migration
+
+
+31. DATA STORAGE
+================
+
+[ ] YAML storage
+[ ] SQLite storage
+[ ] MySQL storage
+[ ] Configurable storage type
+[ ] Asynchronous database operations
+[ ] Connection pooling for MySQL
+[ ] Database migrations
+[ ] Data versioning
+[ ] Automatic backups
+[ ] Backup restore command
+[ ] Player-data cache
+[ ] Cache invalidation
+[ ] Safe shutdown saving
+[ ] Corruption recovery
+[ ] Import from YAML to database
+[ ] Export database data to YAML or JSON
+
+
+32. CONFIGURATION
+=================
+
+[ ] config.yml
+[ ] messages.yml
+[ ] recipes.yml
+[ ] items.yml
+[ ] mobs.yml
+[ ] bosses.yml
+[ ] loot.yml
+[ ] quests.yml
+[ ] skills.yml
+[ ] events.yml
+[ ] seasons.yml
+[ ] storage.yml
+
+Configuration Features
+----------------------
+[ ] Header comments
+[ ] Default values
+[ ] Automatic missing-key insertion
+[ ] Configuration validation
+[ ] Invalid-value warnings
+[ ] Per-world settings
+[ ] Feature toggles
+[ ] Reload support
+[ ] Language files
+[ ] Sound configuration
+[ ] Particle configuration
+[ ] Material validation
+[ ] Entity type validation
+
+
+33. COMPATIBILITY
+=================
+
+Required
+--------
+[x] Spigot 26.2 API only for core functionality
+[ ] Paper 26.2 compatibility
+[x] Java 25 support
+[x] No NMS for core functionality
+[x] No CraftBukkit imports
+[x] No client mod requirement
+[x] No required resource pack
+[x] No required ProtocolLib dependency
+
+Optional Integrations
+---------------------
+[ ] PlaceholderAPI
+[ ] Vault
+[ ] LuckPerms
+[ ] WorldGuard
+[ ] WorldEdit
+[ ] Citizens
+[ ] ProtocolLib
+[ ] CoreProtect
+[ ] DiscordSRV
+
+Compatibility Rules
+-------------------
+[ ] Detect optional plugins safely
+[ ] Disable integrations when dependencies are missing
+[ ] Use softdepend in plugin.yml
+[ ] Avoid version-specific internal server classes
+[ ] Test on a clean Spigot 26.2 server
+[ ] Test on Paper 26.2
+[ ] Test plugin reload behavior
+[ ] Test server restart behavior
+
+
+34. PERFORMANCE
+===============
+
+[ ] Avoid scanning every loaded block
+[ ] Avoid scanning every entity every tick
+[ ] Use event-driven logic
+[ ] Use scheduled tasks carefully
+[ ] Batch database writes
+[ ] Run database work asynchronously
+[ ] Never access Bukkit world objects asynchronously
+[ ] Cache frequently used configuration values
+[ ] Cache custom item definitions
+[ ] Cache player data
+[ ] Remove expired cache entries
+[ ] Limit particles per player
+[ ] Limit display entities
+[ ] Limit boss AI tasks
+[ ] Add configurable task intervals
+[ ] Add timings/debug output
+[ ] Clean up tasks on plugin disable
+[ ] Clean up entities created by the plugin
+
+
+35. SECURITY AND EXPLOIT PREVENTION
+===================================
+
+[ ] Prevent backpack duplication
+[ ] Prevent custom item duplication
+[ ] Prevent grave duplication
+[ ] Prevent GUI item stealing
+[ ] Prevent shift-click exploits
+[ ] Prevent number-key GUI exploits
+[ ] Prevent off-hand GUI exploits
+[ ] Validate inventory close events
+[ ] Validate item IDs
+[ ] Validate item amounts
+[ ] Validate command input
+[ ] Validate database input
+[ ] Add transaction logs
+[ ] Add administrator audit logs
+[ ] Rate-limit expensive commands
+[ ] Protect against repeated interaction spam
+
+
+36. TESTING
+===========
+
+Recipes
+-------
+[ ] Test recipe registration
+[ ] Test recipe discovery
+[ ] Test disabled recipes
+[ ] Test duplicate recipe keys
+[ ] Test crafting custom items
+
+Items
+-----
+[ ] Test custom item identification
+[ ] Test anvils
+[ ] Test grindstones
+[ ] Test smithing tables
+[ ] Test enchanting tables
+[ ] Test item merging
+[ ] Test item dropping
+[ ] Test hoppers
+[ ] Test dispensers
+[ ] Test death and respawn
+
+Systems
+-------
+[ ] Test player reconnect
+[ ] Test server restart
+[ ] Test plugin reload
+[ ] Test world unload
+[ ] Test world deletion
+[ ] Test inventory full conditions
+[ ] Test database unavailable conditions
+[ ] Test invalid configurations
+[ ] Test optional plugin removal
+[ ] Test permissions
+[ ] Test console commands
+[ ] Test command blocks
+
+Performance
+-----------
+[ ] Test with many online players
+[ ] Test with many custom mobs
+[ ] Test with many graves
+[ ] Test with many claims
+[ ] Test with many waystones
+[ ] Test database load
+[ ] Test memory usage
+[ ] Test task cleanup
+
+
+37. RECOMMENDED IMPLEMENTATION ORDER
+====================================
+
+Phase 1 - Foundation
+--------------------
+[ ] Plugin bootstrap
+[ ] Configuration system
+[ ] Message system
+[ ] Permission system
+[ ] Data storage abstraction
+[ ] Player data manager
+[ ] Custom item manager
+[ ] Command framework
+
+Phase 2 - Basic Vanilla+
+------------------------
+[ ] Custom recipes
+[ ] Right-click harvesting
+[ ] Fast leaf decay
+[ ] Double doors
+[ ] Sleep percentage
+[ ] Durability warnings
+[ ] Death coordinates
+[ ] Inventory sorting
+
+Phase 3 - Survival Systems
+--------------------------
+[ ] Graves
+[ ] Homes
+[ ] TPA
+[ ] Waystones
+[ ] Backpacks
+[ ] Daily rewards
+[ ] Player statistics
+
+Phase 4 - Progression
+---------------------
+[ ] Skills
+[ ] Quests
+[ ] Achievements
+[ ] Collectibles
+[ ] Treasure maps
+[ ] Fishing expansion
+
+Phase 5 - Combat and Events
+---------------------------
+[ ] Mob variants
+[ ] Mini-bosses
+[ ] Better loot
+[ ] World events
+[ ] Seasonal events
+
+Phase 6 - Multiplayer
+---------------------
+[ ] Parties
+[ ] Trading
+[ ] Player shops
+[ ] Mail
+[ ] Claims
+[ ] Chat features
+
+Phase 7 - Polish
+----------------
+[ ] Administration GUI
+[ ] Optional integrations
+[ ] Localization
+[ ] Performance tuning
+[ ] Exploit testing
+[ ] Documentation
+
+
+38. MINECRAFT 26.2 CONTENT INTEGRATION
+=====================================
+
+Sulfur Caves
+------------
+[ ] Detect the Sulfur Caves biome through the Spigot 26.2 API
+[ ] Add biome-specific quests for Sulfur Caves
+[ ] Add biome-specific treasure tables
+[ ] Add biome-specific ambient particles and sounds
+[ ] Add exploration achievements for discovering Sulfur Caves
+[ ] Add configurable custom mob spawn chances in Sulfur Caves
+[ ] Avoid replacing or modifying vanilla biome generation
+[ ] Avoid hard-coded biome names when an enum/API constant is available
+
+Sulfur Cube
+-----------
+[ ] Add Sulfur Cube kill quests
+[ ] Add Sulfur Cube collection achievements
+[ ] Add configurable Sulfur Cube bonus drops
+[ ] Add Sulfur Cube boss or elite variants using the normal entity
+[ ] Track Sulfur Cubes with PersistentDataContainer
+[ ] Test Sulfur Cube spawn, death, damage, bucket, and transformation behavior
+[ ] Do not assume MagmaCube extends Slime
+[ ] Handle Slime and MagmaCube independently in type checks
+[ ] Avoid unsafe entity class casts
+[ ] Confirm the final ItemMeta API before modifying Sulfur Cube Bucket metadata
+
+Cinnabar and Sulfur Blocks
+--------------------------
+[ ] Add recipes using Cinnabar materials
+[ ] Add recipes using Sulfur materials
+[ ] Add recipes using Sulfur Spike
+[ ] Add recipes using Potent Sulfur
+[ ] Add mining quests for Cinnabar and Sulfur
+[ ] Add collection achievements for the new block sets
+[ ] Add new materials to sorting categories
+[ ] Add new materials to backpack filters
+[ ] Add new materials to shop and trade validation
+[ ] Add new materials to loot configuration validation
+[ ] Add new materials to item serialization tests
+[ ] Verify all 26.2 Material enum names against the Spigot API
+
+Music
+-----
+[ ] Support the new Bounce music disc in collection tracking
+[ ] Add the new disc to configurable treasure loot
+[ ] Add the new disc to music-disc achievements
+[ ] Use the Spigot Sound and MusicInstrument APIs where available
+[ ] Never depend on client-only music identifiers
+
+Friends List
+------------
+[ ] Do not attempt to replace or manipulate the vanilla Friends List
+[ ] Keep plugin party, ignore, and private-message systems independent
+[ ] Respect players who cannot receive chat messages
+[ ] Do not assume every online player can see plugin chat
+[ ] Provide action-bar or title fallback for important plugin notifications
+
+
+39. SPIGOT 26.2 API MIGRATION NOTES
+===================================
+
+Beds
+----
+[ ] Do not store PersistentDataContainer data directly on bed block states
+[ ] Migrate existing bed metadata to plugin-managed storage
+[ ] Key bed data by world UUID and block coordinates
+[ ] Remove stored bed data when a bed is broken
+[ ] Handle both halves of a bed correctly
+[ ] Clean invalid bed entries during startup
+[ ] Test bed placement, breaking, explosions, pistons, and world unload
+[ ] Review all code that assumes beds are TileState instances
+
+Magma Cubes and Slimes
+----------------------
+[ ] Replace code that assumes MagmaCube is a subclass of Slime
+[ ] Use EntityType checks or separate instanceof branches
+[ ] Separate slime-size handling when required by the 26.2 API
+[ ] Test custom slime variants
+[ ] Test custom magma cube variants
+[ ] Test shared boss logic without unsafe casts
+
+World Storage Migration
+-----------------------
+[ ] Create a tested world backup before upgrading a production server
+[ ] Do not support downgrading a world after opening it in 26.2
+[ ] Test every supported world using a copied server directory
+[ ] Verify custom world names and UUIDs after migration
+[ ] Verify grave, claim, waystone, and treasure coordinates
+[ ] Verify Nether and End persistent data
+[ ] Handle missing or regenerated world UUID references safely
+[ ] Log unresolved stored locations instead of crashing
+
+General API Rules
+-----------------
+[ ] Compile directly against Spigot API 26.2-R0.1-SNAPSHOT
+[ ] Use NamespacedKey for every plugin-owned key
+[ ] Use PersistentDataContainer only on supported holders
+[ ] Prefer EntityType and Material enums over string comparisons
+[ ] Use Registry APIs where exposed by Spigot
+[ ] Avoid deprecated methods when a 26.2 replacement exists
+[ ] Avoid reflection for normal Bukkit/Spigot functionality
+[ ] Avoid implementation-specific server classes
+[ ] Check nullable API results before use
+[ ] Validate materials, entities, sounds, particles, biomes, and enchantments
+[ ] Keep Bukkit world and entity access on the primary server thread
+[ ] Run only pure file and database work asynchronously
+
+
+40. 26.2 BUILD AND RELEASE CHECKLIST
+===================================
+
+Development Environment
+-----------------------
+[ ] Install a Java 25 JDK
+[ ] Verify java -version reports Java 25 or newer
+[ ] Verify mvn -version uses the Java 25 JDK
+[ ] Update Maven Compiler Plugin for release 25
+[ ] Update Maven Shade Plugin
+[ ] Download or build the latest Spigot 26.2 server
+[ ] Use the latest BuildTools with --rev 26.2
+[ ] Keep Spigot API dependency scope set to provided
+
+Plugin Metadata
+---------------
+[ ] Set api-version to '26.2'
+[ ] Set plugin version independently from Minecraft version
+[ ] Validate plugin.yml during the Maven build
+[ ] Verify every command is declared
+[ ] Verify every permission is declared
+[ ] Declare optional integrations under softdepend
+[ ] Do not declare optional integrations under depend
+
+Clean-Server Test
+-----------------
+[ ] Start a clean Spigot 26.2 server
+[ ] Accept the EULA
+[ ] Install only VanillaPlus
+[ ] Confirm the plugin enables without warnings
+[ ] Confirm no missing-class errors
+[ ] Confirm no unsupported API-version warning
+[ ] Confirm all recipes register
+[ ] Confirm all listeners register
+[ ] Confirm all commands register
+[ ] Confirm all scheduled tasks stop on disable
+[ ] Confirm the server shuts down cleanly
+
+Gameplay Test
+-------------
+[ ] Test existing vanilla recipes
+[ ] Test all custom recipes
+[ ] Test all 26.2 materials used by the plugin
+[ ] Test Sulfur Caves functionality
+[ ] Test Sulfur Cube functionality
+[ ] Test Cinnabar and Sulfur loot
+[ ] Test beds after the 26.2 block-state change
+[ ] Test slimes and magma cubes independently
+[ ] Test graves in every dimension
+[ ] Test waystones in every dimension
+[ ] Test backpack serialization
+[ ] Test custom item PersistentDataContainer tags
+[ ] Test custom entity PersistentDataContainer tags
+[ ] Test restart persistence
+[ ] Test world migration with backups
+
+Compatibility Test
+------------------
+[ ] Test current Spigot 26.2 build
+[ ] Test current Paper 26.2 build
+[ ] Test with PlaceholderAPI installed
+[ ] Test without PlaceholderAPI
+[ ] Test with Vault installed
+[ ] Test without Vault
+[ ] Test with LuckPerms installed
+[ ] Test without LuckPerms
+[ ] Test all optional integrations independently
+[ ] Confirm plugin remains functional when soft dependencies are absent
+
+Release
+-------
+[ ] Include Minecraft 26.2 in the supported-version documentation
+[ ] State that Java 25 is required
+[ ] State that Spigot 26.2 is required
+[ ] State that client mods are not required
+[ ] State that a resource pack is optional
+[ ] Include installation instructions
+[ ] Include upgrade and backup instructions
+[ ] Include known limitations
+[ ] Include a complete permissions list
+[ ] Include a complete commands list
+[ ] Include default configuration files
