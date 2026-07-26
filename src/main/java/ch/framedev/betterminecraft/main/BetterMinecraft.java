@@ -1,9 +1,6 @@
 package ch.framedev.betterminecraft.main;
 
-import ch.framedev.betterminecraft.commands.HomeCommand;
-import ch.framedev.betterminecraft.commands.TpaAcceptCommand;
-import ch.framedev.betterminecraft.commands.TpaCommand;
-import ch.framedev.betterminecraft.commands.TpaDenyCommand;
+import ch.framedev.betterminecraft.commands.*;
 import ch.framedev.betterminecraft.listeners.PlayerListeners;
 import ch.framedev.betterminecraft.managers.RecipesManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -11,8 +8,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class BetterMinecraft extends JavaPlugin {
 
     private static BetterMinecraft instance;
-
-    private final String prefix = "§a[§6BetterMinecraft§a]§r ";
 
     private RecipesManager recipesManager;
 
@@ -38,16 +33,24 @@ public final class BetterMinecraft extends JavaPlugin {
         this.getCommand("tpadeny").setExecutor(new TpaDenyCommand(this, tpaCommand));
         this.getCommand("tpaaccept").setExecutor(new TpaAcceptCommand(this, tpaCommand));
 
+        WarpCommand warpCommand = new WarpCommand(this);
+        DelWarpCommand delWarpCommand = new DelWarpCommand(this);
+        this.getCommand("setwarp").setExecutor(new SetWarpCommand(this));
+        this.getCommand("warp").setExecutor(warpCommand);
+        this.getCommand("delwarp").setExecutor(delWarpCommand);
+        this.getCommand("warp").setTabCompleter(warpCommand);
+        this.getCommand("delwarp").setTabCompleter(warpCommand);
+
         getLogger().info("Plugin enabled.");
     }
 
     @Override
     public void onDisable() {
-
+        getLogger().info("Plugin disabled.");
     }
 
     public String getPrefix() {
-        return prefix;
+        return "§a[§6BetterMinecraft§a]§r ";
     }
 
     public static BetterMinecraft getInstance() {
@@ -56,5 +59,12 @@ public final class BetterMinecraft extends JavaPlugin {
 
     public RecipesManager getRecipesManager() {
         return recipesManager;
+    }
+
+    public String getMessageFromConfig(String keyForMessage, String defaultMessage) {
+        String message = getConfig().getString(keyForMessage, defaultMessage);
+        if (message.contains("&"))
+            message = message.replace("&", "§");
+        return message;
     }
 }

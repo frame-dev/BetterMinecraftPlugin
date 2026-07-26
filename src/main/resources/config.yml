@@ -1,2 +1,5 @@
 listeners:
   replantCrops: true
+warn:
+  beforeToolBreak: true
+  beforeToolBreakMessage: "&cYour tool is about to break!"

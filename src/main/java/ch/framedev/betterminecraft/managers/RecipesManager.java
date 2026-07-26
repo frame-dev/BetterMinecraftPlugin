@@ -161,15 +161,6 @@ public class RecipesManager {
         recipeTuffHoe.setIngredient('S', Material.STICK);
         success.add(plugin.getServer().addRecipe(recipeTuffHoe));
         recipes.add(recipeTuffHoe);
-
-        // Saddle Recipe
-        ShapedRecipe recipeSaddle = new ShapedRecipe(new NamespacedKey(plugin, "better_minecraft_recipe_saddle"), new ItemStack(Material.SADDLE));
-        recipeSaddle.shape("G G", "G G", "GGG");
-        recipeSaddle.setIngredient('G', Material.LEATHER);
-        success.add(plugin.getServer().addRecipe(recipeSaddle));
-        recipes.add(recipeSaddle);
-        success.add(plugin.getServer().addRecipe(recipeSaddle));
-
         return success;
     }
 

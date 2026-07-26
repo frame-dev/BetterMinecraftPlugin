@@ -19,3 +19,9 @@ commands:
     description: Accept a teleport request
   tpadeny:
     description: Deny a teleport request
+  warp:
+    description: Teleport to a warp location
+  setwarp:
+    description: Set a warp location
+  delwarp:
+    description: Delete a warp location

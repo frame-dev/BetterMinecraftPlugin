@@ -13,9 +13,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Random;
 
@@ -63,7 +66,7 @@ public class PlayerListeners implements Listener {
                             clickedBlock.setType(Material.AIR);
                         else {
                             Player player = event.getPlayer();
-                            if(removeItemFromInventory(player, Material.WHEAT_SEEDS, 1)) {
+                            if (removeItemFromInventory(player, Material.WHEAT_SEEDS)) {
                                 crop.setAge(0);
                                 clickedBlock.setBlockData(crop);
                             } else {
@@ -77,7 +80,7 @@ public class PlayerListeners implements Listener {
                             clickedBlock.setType(Material.AIR);
                         else {
                             Player player = event.getPlayer();
-                            if(removeItemFromInventory(player, Material.CARROT, 1)) {
+                            if (removeItemFromInventory(player, Material.CARROT)) {
                                 crop.setAge(0);
                                 clickedBlock.setBlockData(crop);
                             } else {
@@ -93,7 +96,7 @@ public class PlayerListeners implements Listener {
                             crop.setAge(0);
                             clickedBlock.setBlockData(crop);
                             Player player = event.getPlayer();
-                            removeItemFromInventory(player, Material.POTATO, 1);
+                            removeItemFromInventory(player, Material.POTATO);
                         }
                     }
                     case BEETROOTS -> {
@@ -102,7 +105,7 @@ public class PlayerListeners implements Listener {
                             clickedBlock.setType(Material.AIR);
                         else {
                             Player player = event.getPlayer();
-                            if(removeItemFromInventory(player, Material.BEETROOT_SEEDS, 1)) {
+                            if (removeItemFromInventory(player, Material.BEETROOT_SEEDS)) {
                                 crop.setAge(0);
                                 clickedBlock.setBlockData(crop);
                             } else {
@@ -112,11 +115,11 @@ public class PlayerListeners implements Listener {
                     }
                     case NETHER_WART -> {
                         world.dropItemNaturally(clickedBlock.getLocation(), new ItemStack(Material.NETHER_WART, randomInt));
-                        if(!plugin.getConfig().getBoolean("listeners.replantCrops"))
+                        if (!plugin.getConfig().getBoolean("listeners.replantCrops"))
                             clickedBlock.setType(Material.AIR);
                         else {
                             Player player = event.getPlayer();
-                            if(removeItemFromInventory(player, Material.NETHER_WART, 1)) {
+                            if (removeItemFromInventory(player, Material.NETHER_WART)) {
                                 crop.setAge(0);
                                 clickedBlock.setBlockData(crop);
                             } else {
@@ -126,11 +129,11 @@ public class PlayerListeners implements Listener {
                     }
                     case COCOA -> {
                         world.dropItemNaturally(clickedBlock.getLocation(), new ItemStack(Material.COCOA_BEANS));
-                        if(!plugin.getConfig().getBoolean("listeners.replantCrops"))
+                        if (!plugin.getConfig().getBoolean("listeners.replantCrops"))
                             clickedBlock.setType(Material.AIR);
                         else {
                             Player player = event.getPlayer();
-                            if (removeItemFromInventory(player, Material.COCOA_BEANS, 1)) {
+                            if (removeItemFromInventory(player, Material.COCOA_BEANS)) {
                                 crop.setAge(0);
                                 clickedBlock.setBlockData(crop);
                             } else {
@@ -141,11 +144,27 @@ public class PlayerListeners implements Listener {
                 }
             }
         }
+
+        warnToolBreak(event.getPlayer(), event.getPlayer().getInventory().getItemInMainHand());
     }
 
-    private boolean removeItemFromInventory(Player player, Material material, int amount) {
-        if(player.getInventory().containsAtLeast(new ItemStack(material), amount)) {
-            player.getInventory().removeItem(new ItemStack(material, amount));
+    public void warnToolBreak(Player player, ItemStack item) {
+        if (item.getType().isAir()) return;
+        ItemMeta itemMeta = item.getItemMeta();
+        if (itemMeta == null) return;
+        if (!(itemMeta instanceof Damageable damageable) || !damageable.hasMaxDamage()) {
+            return;
+        }
+        int remainingDurability = damageable.getMaxDamage() - damageable.getDamage();
+        if(remainingDurability <= 5) {
+            String message = plugin.getMessageFromConfig("warn.beforeToolBreakMessage", "&cYour tool is about to break!");
+            player.sendMessage(plugin.getPrefix() + message);
+        }
+    }
+
+    private boolean removeItemFromInventory(Player player, Material material) {
+        if (player.getInventory().containsAtLeast(new ItemStack(material), 1)) {
+            player.getInventory().removeItem(new ItemStack(material, 1));
             return true;
         }
         return false;
