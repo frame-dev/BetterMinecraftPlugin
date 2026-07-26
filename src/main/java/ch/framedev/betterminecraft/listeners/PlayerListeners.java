@@ -1,5 +1,7 @@
-package ch.framedev.betterminecraft;
+package ch.framedev.betterminecraft.listeners;
 
+import ch.framedev.betterminecraft.utils.DoorPhysics;
+import ch.framedev.betterminecraft.main.BetterMinecraft;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;

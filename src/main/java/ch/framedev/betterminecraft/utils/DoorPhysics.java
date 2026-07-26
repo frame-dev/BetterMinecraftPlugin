@@ -1,4 +1,4 @@
-package ch.framedev.betterminecraft;
+package ch.framedev.betterminecraft.utils;
 
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;

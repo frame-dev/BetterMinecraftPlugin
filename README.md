@@ -4,7 +4,7 @@ A server-side **Vanilla+** plugin for Spigot. It adds quality-of-life gameplay i
 Spigot API — no client mods, no custom launcher, no resource pack, and no NMS/CraftBukkit access.
 
 - **Group / Artifact:** `ch.framedev` / `BetterMinecraft`
-- **Main class:** `ch.framedev.betterminecraft.BetterMinecraft`
+- **Main class:** `ch.framedev.betterminecraft.main.BetterMinecraft`
 - **Spigot API:** `26.1.2-R0.1-SNAPSHOT` (`api-version: '26.1'`)
 - **Java:** 21
 

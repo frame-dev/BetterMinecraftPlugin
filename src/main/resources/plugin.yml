@@ -1,5 +1,21 @@
 name: BetterMinecraft
 version: '${version}'
 
-main: ch.framedev.betterminecraft.BetterMinecraft
+main: ch.framedev.betterminecraft.main.BetterMinecraft
 api-version: '26.1'
+
+commands:
+  sethome:
+    description: Set a home location
+  home:
+    description: Teleport to your home location
+  delhome:
+    description: Delete a home location
+  homes:
+    description: List your home locations
+  tpa:
+    description: Request a teleport
+  tpaaccept:
+    description: Accept a teleport request
+  tpadeny:
+    description: Deny a teleport request

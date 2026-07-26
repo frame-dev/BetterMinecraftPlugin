@@ -105,7 +105,7 @@ Recipe System
 
 Additional Vanilla-Friendly Recipes
 -----------------------------------
-[ ] Saddle recipe
+[x] Saddle recipe
 [ ] Name Tag recipe
 [ ] Bell recipe
 [ ] Cobweb recipe
@@ -178,11 +178,6 @@ Vanilla-Like Item Ideas
 
 Sleeping
 --------
-[ ] One-player sleep
-[ ] Configurable sleep percentage
-[ ] Skip thunderstorms when sleeping
-[ ] Show sleeping player count
-[ ] Cancel sleep skip when hostile mobs are nearby
 [ ] Optional phantom prevention after successful sleep
 
 Inventory
@@ -277,10 +272,10 @@ Other QoL
 
 Homes
 -----
-[ ] /sethome
-[ ] /home
-[ ] /delhome
-[ ] /homes
+[x] /sethome
+[x] /home
+[x] /delhome
+[x] /homes
 [ ] Configurable home limits
 [ ] Permission-based home limits
 [ ] Teleport warmup
