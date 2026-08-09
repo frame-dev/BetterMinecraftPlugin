@@ -25,3 +25,9 @@ commands:
     description: Set a warp location
   delwarp:
     description: Delete a warp location
+  heal:
+    description: Heal yourself or another player
+  feed:
+    description: Feed yourself or another player
+  crafthistory:
+    description: View your crafting history

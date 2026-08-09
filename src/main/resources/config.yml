@@ -1,5 +1,9 @@
 listeners:
   replantCrops: true
+  craftingTableDiscoverRecipes: true
+  craftingTableCraftFromNearbyInventories: true
 warn:
   beforeToolBreak: true
   beforeToolBreakMessage: "&cYour tool is about to break!"
+others:
+  collectCraftingHistory: true

@@ -2,7 +2,9 @@ package ch.framedev.betterminecraft.main;
 
 import ch.framedev.betterminecraft.commands.*;
 import ch.framedev.betterminecraft.listeners.PlayerListeners;
+import ch.framedev.betterminecraft.managers.CraftHistory;
 import ch.framedev.betterminecraft.managers.RecipesManager;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class BetterMinecraft extends JavaPlugin {
@@ -10,36 +12,24 @@ public final class BetterMinecraft extends JavaPlugin {
     private static BetterMinecraft instance;
 
     private RecipesManager recipesManager;
+    private CraftHistory craftHistory;
 
     @Override
     public void onEnable() {
         instance = this;
-        getConfig().options().copyDefaults(true);
-        saveDefaultConfig();
-        this.recipesManager = new RecipesManager(this);
+
+        setupConfig();
+
+        recipesManager = new RecipesManager(this);
         recipesManager.init();
-        this.getServer().getPluginManager().registerEvents(new PlayerListeners(this), this);
 
-        HomeCommand homeCommand = new HomeCommand(this);
-        this.getCommand("home").setExecutor(homeCommand);
-        this.getCommand("home").setTabCompleter(homeCommand);
-        this.getCommand("sethome").setExecutor(homeCommand);
-        this.getCommand("delhome").setExecutor(homeCommand);
-        this.getCommand("delhome").setTabCompleter(homeCommand);
-        this.getCommand("homes").setExecutor(homeCommand);
+        craftHistory = new CraftHistory();
 
-        TpaCommand tpaCommand = new TpaCommand(this);
-        this.getCommand("tpa").setExecutor(tpaCommand);
-        this.getCommand("tpadeny").setExecutor(new TpaDenyCommand(this, tpaCommand));
-        this.getCommand("tpaaccept").setExecutor(new TpaAcceptCommand(this, tpaCommand));
+        getServer().getPluginManager().registerEvents(craftHistory, this);
 
-        WarpCommand warpCommand = new WarpCommand(this);
-        DelWarpCommand delWarpCommand = new DelWarpCommand(this);
-        this.getCommand("setwarp").setExecutor(new SetWarpCommand(this));
-        this.getCommand("warp").setExecutor(warpCommand);
-        this.getCommand("delwarp").setExecutor(delWarpCommand);
-        this.getCommand("warp").setTabCompleter(warpCommand);
-        this.getCommand("delwarp").setTabCompleter(warpCommand);
+        getServer().getPluginManager().registerEvents(new PlayerListeners(this), this);
+
+        registerCommands();
 
         getLogger().info("Plugin enabled.");
     }
@@ -47,6 +37,88 @@ public final class BetterMinecraft extends JavaPlugin {
     @Override
     public void onDisable() {
         getLogger().info("Plugin disabled.");
+    }
+
+    private void setupConfig() {
+        saveDefaultConfig();
+
+        getConfig().options().copyDefaults(true);
+
+        saveConfig();
+    }
+
+    private void registerCommands() {
+        HomeCommand homeCommand = new HomeCommand(this);
+
+        setExecutor("home", homeCommand);
+        setTabCompleter("home", homeCommand);
+
+        setExecutor("sethome", homeCommand);
+
+        setExecutor("delhome", homeCommand);
+        setTabCompleter("delhome", homeCommand);
+
+        setExecutor("homes", homeCommand);
+
+        TpaCommand tpaCommand = new TpaCommand(this);
+
+        setExecutor("tpa", tpaCommand);
+
+        setExecutor("tpadeny", new TpaDenyCommand(this, tpaCommand));
+
+        setExecutor("tpaaccept", new TpaAcceptCommand(this, tpaCommand));
+
+        WarpCommand warpCommand = new WarpCommand(this);
+
+        DelWarpCommand delWarpCommand = new DelWarpCommand(this);
+
+        setExecutor("setwarp", new SetWarpCommand(this));
+
+        setExecutor("warp", warpCommand);
+
+        setTabCompleter("warp", warpCommand);
+
+        setExecutor("delwarp", delWarpCommand);
+
+        setTabCompleter("delwarp", warpCommand);
+
+        setExecutor("heal", new HealCommand(this));
+
+        setExecutor("feed", new FeedCommand(this));
+
+        setExecutor("crafthistory", new CraftHistoryCommand(this));
+    }
+
+    private void setExecutor(String commandName, org.bukkit.command.CommandExecutor executor) {
+        PluginCommand command = getCommand(commandName);
+
+        if (command == null) {
+            getLogger().severe("Command '" + commandName + "' is missing from plugin.yml!");
+
+            return;
+        }
+
+        command.setExecutor(executor);
+    }
+
+    private void setTabCompleter(String commandName, org.bukkit.command.TabCompleter completer) {
+        PluginCommand command = getCommand(commandName);
+
+        if (command == null) {
+            getLogger().severe("Command '" + commandName + "' is missing from plugin.yml!");
+
+            return;
+        }
+
+        command.setTabCompleter(completer);
+    }
+
+    public CraftHistory getCraftHistory() {
+        return craftHistory;
+    }
+
+    public RecipesManager getRecipesManager() {
+        return recipesManager;
     }
 
     public String getPrefix() {
@@ -57,14 +129,13 @@ public final class BetterMinecraft extends JavaPlugin {
         return instance;
     }
 
-    public RecipesManager getRecipesManager() {
-        return recipesManager;
-    }
+    public String getMessageFromConfig(String key, String defaultMessage) {
+        String message = getConfig().getString(key, defaultMessage);
 
-    public String getMessageFromConfig(String keyForMessage, String defaultMessage) {
-        String message = getConfig().getString(keyForMessage, defaultMessage);
-        if (message.contains("&"))
-            message = message.replace("&", "§");
-        return message;
+        if (message == null) {
+            return defaultMessage.replace('&', '§');
+        }
+
+        return message.replace('&', '§');
     }
 }

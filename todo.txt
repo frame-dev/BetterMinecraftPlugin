@@ -196,7 +196,7 @@ Inventory
 
 Crafting
 --------
-[ ] Craft items directly from nearby containers
+[x] Craft items directly from nearby containers
 [ ] Bulk crafting command
 [ ] Crafting history
 [ ] Recipe search GUI
@@ -286,7 +286,7 @@ Homes
 
 TPA
 ---
-[ ] /tpa
+[x] /tpa
 [ ] /tpahere
 [ ] /tpaccept
 [ ] /tpdeny
@@ -507,10 +507,8 @@ PersistentDataContainer, particles, sounds, and fishing events.
 
 Only use existing crops, items, blocks, display entities, and custom metadata.
 
-[ ] Right-click harvesting
-[ ] Automatic replanting
-[ ] Crop quality system
-[ ] Giant crop chance represented by item rewards
+[x] Right-click harvesting
+[x] Automatic replanting
 [ ] Rare seed drops
 [ ] Fertilizer item using bone meal mechanics
 [ ] Compost quality levels
@@ -522,22 +520,6 @@ Only use existing crops, items, blocks, display entities, and custom metadata.
 [ ] Scarecrow represented by ArmorStand or block structure
 [ ] Scarecrow protects crops from trampling
 [ ] Configurable crop growth rates
-
-
-13. SKILLS
-==========
-
-Keep bonuses small so survival remains balanced.
-
-[ ] Mining skill
-[ ] Woodcutting skill
-[ ] Farming skill
-[ ] Fishing skill
-[ ] Combat skill
-[ ] Excavation skill
-[ ] Exploration skill
-[ ] Brewing skill
-[ ] Enchanting skill
 
 Skill Features
 --------------
@@ -869,33 +851,6 @@ Use particles, sounds, display entities, ArmorStands, and scheduled tasks.
 [ ] Cold-biome breath particles
 [ ] Disable ambient effects per player
 [ ] Performance configuration
-
-
-26. SEASONS
-===========
-
-Seasons must simulate changes without adding custom biomes or changing
-the Minecraft client.
-
-[ ] Spring
-[ ] Summer
-[ ] Autumn
-[ ] Winter
-[ ] Configurable season duration
-[ ] Season calendar
-[ ] Season command
-[ ] Crop growth multipliers
-[ ] Animal breeding modifiers
-[ ] Weather modifiers
-[ ] Fishing modifiers
-[ ] Mob-spawn modifiers
-[ ] Seasonal particles
-[ ] Seasonal sounds
-[ ] Snow placement during winter
-[ ] Snow cleanup after winter
-[ ] Autumn leaf particles
-[ ] Seasonal event integration
-[ ] Per-world season settings
 
 
 27. ENCHANTMENT-LIKE ABILITIES

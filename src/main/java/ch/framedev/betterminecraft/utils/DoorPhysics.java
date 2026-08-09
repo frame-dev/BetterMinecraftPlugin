@@ -21,8 +21,7 @@ public class DoorPhysics {
     private boolean isMatchingDoubleDoor(Block firstBlock, Door firstDoor, Block secondBlock, Door secondDoor) {
         if (firstBlock.equals(secondBlock)) return false;
         if (firstBlock.getType() != secondBlock.getType()) return false;
-        if (firstDoor.getHalf() != Bisected.Half.BOTTOM ||
-                secondDoor.getHalf() != Bisected.Half.BOTTOM) return false;
+        if (firstDoor.getHalf() != Bisected.Half.BOTTOM || secondDoor.getHalf() != Bisected.Half.BOTTOM) return false;
         if (firstDoor.getFacing() != secondDoor.getFacing()) return false;
         return firstDoor.getHinge() != secondDoor.getHinge();
     }
@@ -44,14 +43,9 @@ public class DoorPhysics {
     public void synchroniseGate(Block sourceBlock) {
         if (!(sourceBlock.getBlockData() instanceof Gate)) return;
 
-        BlockFace[] faces = {
-                BlockFace.EAST,
-                BlockFace.WEST,
-                BlockFace.NORTH,
-                BlockFace.SOUTH
-        };
+        BlockFace[] faces = {BlockFace.EAST, BlockFace.WEST, BlockFace.NORTH, BlockFace.SOUTH};
 
-        for(BlockFace face : faces) {
+        for (BlockFace face : faces) {
             Block neighbourBlock = sourceBlock.getRelative(face);
             if (!(neighbourBlock.getBlockData() instanceof Gate neighbourGate)) continue;
             neighbourGate.setOpen(sourceBlock.getBlockData() instanceof Gate gate && gate.isOpen());
@@ -63,12 +57,7 @@ public class DoorPhysics {
         Block sourceBlock = getBottomDoorBlock(block);
         if (!(sourceBlock.getBlockData() instanceof Door sourceDoor)) return;
 
-        BlockFace[] faces = {
-                BlockFace.EAST,
-                BlockFace.WEST,
-                BlockFace.NORTH,
-                BlockFace.SOUTH
-        };
+        BlockFace[] faces = {BlockFace.EAST, BlockFace.WEST, BlockFace.NORTH, BlockFace.SOUTH};
 
         for (BlockFace face : faces) {
             Block neighbourBlock = block.getRelative(face);
