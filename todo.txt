@@ -197,19 +197,7 @@ Inventory
 Crafting
 --------
 [x] Craft items directly from nearby containers
-[ ] Bulk crafting command
 [x] Crafting history
-[ ] Recipe search GUI
-
-Furnaces
---------
-[ ] Furnace progress display
-[ ] Furnace owner tracking
-[ ] Furnace XP information
-[ ] Optional automatic fuel insertion
-[ ] Optional automatic output collection
-[ ] Configurable furnace speed multiplier
-[ ] Keep default speed as the standard value
 
 Doors and Gates
 ---------------
@@ -266,7 +254,7 @@ Other QoL
 [ ] Restore graves after server restart
 
 
-5. HOMES, TELEPORTATION, AND WAYSTONES
+5. HOMES, TELEPORTATION
 ======================================
 
 Homes
@@ -286,328 +274,17 @@ Homes
 TPA
 ---
 [x] /tpa
-[ ] /tpahere
-[ ] /tpaccept
-[ ] /tpdeny
+[x] /tpaccept
+[x] /tpadeny
+[x] /tpahere
+[x] /tpahereaccept
+[x] /tpaheredeny
 [ ] Request timeout
 [ ] Ignore teleport requests
 [ ] Configurable cooldown
 [ ] Safe teleport validation
 
-Waystones
----------
-[ ] Use Lodestone or another vanilla block as a waystone
-[ ] Register waystones by right-clicking
-[ ] Open waystone GUI
-[ ] Public waystones
-[ ] Private waystones
-[ ] Shared waystones
-[ ] Permission-based waystone limits
-[ ] Experience cost
-[ ] Item cost
-[ ] Teleport cooldown
-[ ] Cross-world teleport configuration
-[ ] Destroyed waystone cleanup
-[ ] Persistent waystone storage
-
-
-6. BETTER MOBS
-==============
-
-Mob Variants
-------------
-Use normal Bukkit entity types with equipment, attributes, potion effects,
-custom names, sounds, particles, and PersistentDataContainer tags.
-
-[ ] Armored Zombie
-[ ] Miner Zombie
-[ ] Frozen Zombie
-[ ] Swamp Zombie
-[ ] Desert Zombie
-[ ] Skeleton Archer
-[ ] Heavy Skeleton
-[ ] Frost Skeleton
-[ ] Poison Skeleton
-[ ] Elite Spider
-[ ] Cave Spider Queen
-[ ] Charged Creeper variant
-[ ] Enderman Stalker
-[ ] Blaze Captain
-[ ] Piglin Guard
-[ ] Pillager Captain variant
-[ ] Drowned Captain
-[ ] Ancient Guardian
-
-Mob System
-----------
-[ ] Create CustomMobManager
-[ ] Tag mobs with PersistentDataContainer
-[ ] Configure spawn chance
-[ ] Configure biome restrictions
-[ ] Configure world restrictions
-[ ] Configure minimum distance from spawn
-[ ] Configure equipment
-[ ] Configure health
-[ ] Configure damage
-[ ] Configure movement speed
-[ ] Configure potion effects
-[ ] Configure custom drops
-[ ] Configure experience drops
-[ ] Prevent vanilla equipment drops when required
-[ ] Save persistent boss mobs
-[ ] Remove invalid custom mobs after reload
-
-
-7. MINI-BOSSES
-==============
-
-[ ] Zombie Brute
-[ ] Skeleton Commander
-[ ] Spider Queen
-[ ] Creeper King
-[ ] Drowned Captain
-[ ] Blaze General
-[ ] Piglin Warlord
-[ ] Enderman Lord
-[ ] Ancient Guardian
-[ ] Ravager Champion
-
-Boss Features
--------------
-[ ] BossBar support
-[ ] Boss phases
-[ ] Configurable abilities
-[ ] Ability cooldowns
-[ ] Summon minions
-[ ] Area attacks
-[ ] Projectile attacks
-[ ] Potion-effect attacks
-[ ] Teleport attacks
-[ ] Enrage phase
-[ ] Boss announcements
-[ ] Boss music using vanilla sounds
-[ ] Contribution tracking
-[ ] Individual loot
-[ ] Shared loot
-[ ] Configurable respawn time
-[ ] Spawn command
-[ ] Remove command
-[ ] Edit command
-[ ] Save bosses to YAML or database
-
-
-8. WORLD EVENTS
-===============
-
-All events must use normal worlds, weather, entities, particles, sounds,
-boss bars, scheduled tasks, and Bukkit events.
-
-[ ] Blood Moon
-[ ] Harvest Moon
-[ ] Thunderstorm invasion
-[ ] Pillager raid event
-[ ] Undead night
-[ ] Spider infestation
-[ ] Slime rain
-[ ] Meteor impact simulation
-[ ] Treasure hunt
-[ ] Fishing competition
-[ ] Mining competition
-[ ] Mob hunting competition
-[ ] Traveling merchant event
-[ ] Double crop growth event
-[ ] Double mob-drop event
-[ ] Double experience event
-
-Event System
-------------
-[ ] Random event scheduler
-[ ] Manual event start command
-[ ] Manual event stop command
-[ ] Event cooldown
-[ ] World whitelist
-[ ] Event announcements
-[ ] BossBar timer
-[ ] Participation tracking
-[ ] Reward distribution
-[ ] Event history
-[ ] Persistent active-event state
-[ ] Restore event after restart when possible
-
-
-9. BETTER LOOT
-==============
-
-[ ] Override or supplement chest loot with LootGenerateEvent
-[ ] Configure loot per structure type
-[ ] Configure rarity
-[ ] Configure minimum and maximum amounts
-[ ] Add custom items to loot
-[ ] Add treasure maps
-[ ] Add enchanted books
-[ ] Add cosmetic items
-[ ] Add rare food
-[ ] Add boss summoning items
-[ ] Add keys
-[ ] Add loot crates represented by vanilla containers
-[ ] Prevent duplicate unique loot
-[ ] Add luck-based modifiers
-[ ] Add world-based loot tables
-[ ] Add biome-based loot tables
-[ ] Add permission-based bonus loot
-
-
-10. TREASURE MAPS
-=================
-
-[ ] Generate treasure locations
-[ ] Use normal filled maps
-[ ] Store treasure ID using PersistentDataContainer
-[ ] Add map markers
-[ ] Generate buried treasure chest
-[ ] Generate guarded treasure
-[ ] Add treasure rarity levels
-[ ] Add configurable search radius
-[ ] Add expiration
-[ ] Prevent duplicate treasure completion
-[ ] Track treasure ownership
-[ ] Add party treasure sharing
-[ ] Add /treasure locate for administrators
-
-
-11. FISHING EXPANSION
-=====================
-
-Use normal fish items, tropical fish variants, custom names, lore,
-PersistentDataContainer, particles, sounds, and fishing events.
-
-[ ] Fish rarity system
-[ ] Biome-specific catches
-[ ] Time-specific catches
-[ ] Weather-specific catches
-[ ] World-specific catches
-[ ] Junk items
-[ ] Treasure items
-[ ] Fishing crates
-[ ] Custom fish sizes
-[ ] Personal fishing records
-[ ] Server fishing records
-[ ] Fishing streaks
-[ ] Fishing competitions
-[ ] Configurable catch chances
-[ ] Luck of the Sea integration
-[ ] Lure integration
-[ ] Anti-AFK fishing checks
-[ ] Fishing journal GUI
-
-
-12. FARMING EXPANSION
-=====================
-
-Only use existing crops, items, blocks, display entities, and custom metadata.
-
-[x] Right-click harvesting
-[x] Automatic replanting
-[ ] Rare seed drops
-[ ] Fertilizer item using bone meal mechanics
-[ ] Compost quality levels
-[ ] Seasonal growth multipliers
-[ ] Farming experience
-[ ] Farming quests
-[ ] Harvest streaks
-[ ] Farming competitions
-[ ] Scarecrow represented by ArmorStand or block structure
-[ ] Scarecrow protects crops from trampling
-[ ] Configurable crop growth rates
-
-Skill Features
---------------
-[ ] Experience per action
-[ ] Configurable experience formula
-[ ] Level-up messages
-[ ] Level-up sounds
-[ ] Skill GUI
-[ ] Skill leaderboard
-[ ] Skill reset command
-[ ] Administrator skill editing
-[ ] Maximum skill levels
-[ ] Permission multipliers
-[ ] Small passive bonuses
-[ ] Disable individual bonuses
-[ ] Persistent player data
-
-Balanced Bonus Ideas
---------------------
-[ ] Small chance for double ore drops
-[ ] Small chance for double logs
-[ ] Small chance for double crops
-[ ] Slightly improved fishing luck
-[ ] Slightly increased mob experience
-[ ] Slightly reduced tool durability loss
-[ ] Slightly faster furnace processing
-[ ] Small chance to preserve potion ingredients
-
-
-14. QUESTS
-==========
-
-[ ] Daily quests
-[ ] Weekly quests
-[ ] Repeatable quests
-[ ] One-time quests
-[ ] Tutorial quests
-[ ] Mining quests
-[ ] Farming quests
-[ ] Fishing quests
-[ ] Combat quests
-[ ] Exploration quests
-[ ] Crafting quests
-[ ] Brewing quests
-[ ] Enchanting quests
-
-Quest Objectives
-----------------
-[ ] Break blocks
-[ ] Place blocks
-[ ] Craft items
-[ ] Smelt items
-[ ] Kill mobs
-[ ] Breed animals
-[ ] Tame animals
-[ ] Catch fish
-[ ] Harvest crops
-[ ] Travel distance
-[ ] Visit biome
-[ ] Visit structure
-[ ] Sleep
-[ ] Trade with villagers
-[ ] Complete advancement
-
-Quest Rewards
--------------
-[ ] Items
-[ ] Experience
-[ ] Skill experience
-[ ] Commands
-[ ] Permissions
-[ ] Currency through Vault when installed
-[ ] Custom items
-[ ] Loot keys
-
-Quest System
-------------
-[ ] Quest GUI
-[ ] Quest tracking
-[ ] Progress action bar
-[ ] Progress boss bar
-[ ] Automatic quest rotation
-[ ] Configurable reset time
-[ ] Quest reroll
-[ ] Party progress sharing
-[ ] Persistent quest data
-
-
-15. ADVANCEMENTS AND ACHIEVEMENTS
+6. ADVANCEMENTS AND ACHIEVEMENTS
 =================================
 
 [ ] Custom achievement system
@@ -624,61 +301,7 @@ Quest System
 [ ] Prevent repeated rewards
 [ ] Persistent achievement data
 
-
-16. VILLAGER IMPROVEMENTS
-=========================
-
-[ ] Improve Wandering Trader trades
-[ ] Add rotating trader inventory
-[ ] Add biome-related trader inventory
-[ ] Add rare trader items
-[ ] Add player-head cosmetics
-[ ] Add treasure maps
-[ ] Add mob drops
-[ ] Add building materials
-[ ] Add configurable prices
-[ ] Prevent overpowered trades
-[ ] Add trade cooldowns
-[ ] Add reputation discounts
-[ ] Add villager restocking configuration
-[ ] Protect important villagers
-[ ] Name villagers automatically
-[ ] Villager information GUI
-[ ] Villager trade logging
-
-
-17. TRADING AND PLAYER ECONOMY
-=============================
-
-These features must work without Vault, while optionally integrating with it.
-
-Player Shops
-------------
-[ ] Chest shop system
-[ ] Sign shop system
-[ ] Item-for-item shops
-[ ] Currency shops
-[ ] Owner notifications
-[ ] Shop transaction logs
-[ ] Shop limits
-[ ] Shop protection
-[ ] Out-of-stock display
-[ ] Administrator shop support
-
-Trading
--------
-[ ] /trade <player>
-[ ] Secure trade GUI
-[ ] Item confirmation
-[ ] Experience trading
-[ ] Currency trading through Vault
-[ ] Countdown before completion
-[ ] Cancel trade on movement or damage
-[ ] Transaction logs
-[ ] Anti-scam validation
-
-
-18. BACKPACKS
+7. BACKPACKS
 =============
 
 Use normal inventory GUIs and custom items.
@@ -700,7 +323,7 @@ Use normal inventory GUIs and custom items.
 [ ] Administrator recovery command
 
 
-19. MAIL SYSTEM
+8. MAIL SYSTEM
 ===============
 
 [ ] /mail send <player>

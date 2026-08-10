@@ -9,7 +9,7 @@ import org.jspecify.annotations.NonNull;
 
 public class TpaHereAcceptCommand implements CommandExecutor {
 
-    private TpaHereCommand tpaHereCommand;
+    private final TpaHereCommand tpaHereCommand;
     private final BetterMinecraft plugin;
 
     public TpaHereAcceptCommand(BetterMinecraft plugin, TpaHereCommand tpaHereCommand) {
