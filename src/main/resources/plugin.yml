@@ -19,6 +19,12 @@ commands:
     description: Accept a teleport request
   tpadeny:
     description: Deny a teleport request
+  tpahere:
+    description: Request a teleport to your location
+  tpahereaccept:
+    description: Accept a teleport request to your location
+  tpaheredeny:
+    description: Deny a teleport request to your location
   warp:
     description: Teleport to a warp location
   setwarp:

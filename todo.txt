@@ -198,9 +198,8 @@ Crafting
 --------
 [x] Craft items directly from nearby containers
 [ ] Bulk crafting command
-[ ] Crafting history
+[x] Crafting history
 [ ] Recipe search GUI
-[ ] Show missing ingredients
 
 Furnaces
 --------

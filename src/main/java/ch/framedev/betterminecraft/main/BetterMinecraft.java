@@ -68,6 +68,11 @@ public final class BetterMinecraft extends JavaPlugin {
 
         setExecutor("tpaaccept", new TpaAcceptCommand(this, tpaCommand));
 
+        TpaHereCommand tpaHereCommand = new TpaHereCommand(this);
+        setExecutor("tpahere", tpaHereCommand);
+        setExecutor("tpahereaccept", new TpaHereAcceptCommand(this, tpaHereCommand));
+        setExecutor("tpaheredeny", new TpaHereDenyCommand(this, tpaHereCommand));
+
         WarpCommand warpCommand = new WarpCommand(this);
 
         DelWarpCommand delWarpCommand = new DelWarpCommand(this);
