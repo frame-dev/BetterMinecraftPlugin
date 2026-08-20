@@ -1,3 +1,4 @@
+prefix: '&a[&6Better&cMinecraft&a]&r '
 listeners:
   replantCrops: true
   craftingTableDiscoverRecipes: true

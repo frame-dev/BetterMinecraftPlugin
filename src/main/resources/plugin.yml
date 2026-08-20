@@ -93,6 +93,50 @@ commands:
       - bm
     permission: betterminecraft.admin
     usage: /bm <subcommand> [args]
+  gamemode:
+    description: Change your game mode or from a Player
+    permission: betterminecraft.gamemode
+    usage: /gamemode <mode> [player]
+    aliases:
+      - gm
+      - gmode
+      - gamem
+
+  fly:
+    description: Toggle flight mode
+    permission: betterminecraft.fly
+    usage: /fly [player]
+    aliases:
+      - flymode
+
+  day:
+    description: Change time to day
+    permission: betterminecraft.day
+
+  night:
+    description: Change time to night
+    permission: betterminecraft.night
+
+  sun:
+    description: Change the weather to clear
+    usage: /<command>
+    aliases:
+      - sunny
+    permission: betterminecraft.sun
+
+  rain:
+    description: Change the weather to rain
+    usage: /<command>
+    aliases:
+      - rainy
+    permission: betterminecraft.rain
+
+  thunder:
+    description: Change the weather to thunder
+    usage: /<command>
+    aliases:
+      - storm
+    permission: betterminecraft.thunder
 
 permissions:
   betterminecraft.admin:
@@ -164,3 +208,51 @@ permissions:
   betterminecraft.tpahere:
     description: Allows access to request teleportation to your location
     default: op
+
+  betterminecraft.gamemode:
+    description: Allows access to change your game mode
+    default: op
+
+  betterminecraft.gamemode.others:
+    description: Allow access to change the game mode from another player
+    default: op
+    children:
+      betterminecraft.gamemode: true
+
+  betterminecraft.fly:
+    description: Allow access to change the fly mode
+    default: op
+
+  betterminecraft.fly.others:
+    description: Allow access to change fly mode for others
+    default: op
+    children:
+      betterminecraft.fly: true
+
+  betterminecraft.day:
+    description: Allow access to change daytime to day
+    default: op
+
+  betterminecraft.night:
+    description: Allow access to change daytime to night
+    default: op
+
+  betterminecraft.weather:
+    description: Allows changing the weather
+    default: op
+    children:
+      betterminecraft.sun: true
+      betterminecraft.rain: true
+      betterminecraft.thunder: true
+
+  betterminecraft.sun:
+    description: Allows changing the weather to clear
+    default: false
+
+  betterminecraft.rain:
+    description: Allows changing the weather to rain
+    default: false
+
+  betterminecraft.thunder:
+    description: Allows changing the weather to thunder
+    default: false

@@ -19,17 +19,20 @@ public final class BetterMinecraft extends JavaPlugin {
         instance = this;
 
         setupConfig();
+        getLogger().info("Config loaded.");
 
         recipesManager = new RecipesManager(this);
         recipesManager.init();
+        getLogger().info("Recipes loaded.");
 
         craftHistory = new CraftHistory();
 
         getServer().getPluginManager().registerEvents(craftHistory, this);
-
         getServer().getPluginManager().registerEvents(new PlayerListeners(this), this);
+        getLogger().info("Events registered.");
 
         registerCommands();
+        getLogger().info("Commands registered.");
 
         getLogger().info("Plugin enabled.");
     }
@@ -96,6 +99,21 @@ public final class BetterMinecraft extends JavaPlugin {
 
         setExecutor("crafthistory", new CraftHistoryCommand(this));
 
+        GameModeCommand gameModeCommand = new GameModeCommand(this);
+        setExecutor("gamemode", gameModeCommand);
+        setTabCompleter("gamemode", gameModeCommand);
+
+        setExecutor("fly", new FlyCommand(this));
+
+        DayNightCommand dayNightCommand = new DayNightCommand(this);
+        setExecutor("day", dayNightCommand);
+        setExecutor("night", dayNightCommand);
+
+        WeatherCommands weatherCommands = new WeatherCommands(this);
+        setExecutor("sun", weatherCommands);
+        setExecutor("rain", weatherCommands);
+        setExecutor("thunder", weatherCommands);
+
         // Main Command
         BetterMinecraftCommand betterMinecraftCommand = new BetterMinecraftCommand(this);
         setExecutor("betterminecraft", betterMinecraftCommand);
@@ -135,7 +153,8 @@ public final class BetterMinecraft extends JavaPlugin {
     }
 
     public String getPrefix() {
-        return "§a[§6BetterMinecraft§a]§r ";
+        String prefix = getMessageFromConfig("prefix", "§a[§6BetterMinecraft§a]§r ");
+        return prefix.replace('&', '§');
     }
 
     public static BetterMinecraft getInstance() {
