@@ -25,7 +25,7 @@ public class SetWarpCommand implements CommandExecutor {
             sender.sendMessage(plugin.getPrefix() + "§cYou have to be a player to execute this command!");
             return true;
         }
-        if(!player.hasPermission("betbetterminecraft.setwarp")) {
+        if(!player.hasPermission("betbetterminecraft.warp.set")) {
             sender.sendMessage(plugin.getPrefix() + "§cYou don't have permission to execute this command!");
             return true;
         }

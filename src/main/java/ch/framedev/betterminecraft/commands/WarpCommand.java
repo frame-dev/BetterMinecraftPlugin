@@ -32,7 +32,7 @@ public class WarpCommand implements CommandExecutor, TabCompleter {
         if (!command.getName().equalsIgnoreCase("warp")) {
             return true;
         }
-        if(!player.hasPermission("betterminecraft.warp")) {
+        if(!player.hasPermission("betterminecraft.warp.use")) {
             sender.sendMessage(plugin.getPrefix() + "§cYou don't have permission to use this command!");
             return true;
         }

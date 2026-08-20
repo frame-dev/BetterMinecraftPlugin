@@ -57,4 +57,8 @@ public class TpaCommand implements CommandExecutor {
     public void removePendingRequest(Player player) {
         pendingTeleports.remove(player);
     }
+
+    public Map<Player, Player> getPendingTeleports() {
+        return pendingTeleports;
+    }
 }

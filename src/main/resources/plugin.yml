@@ -1,5 +1,7 @@
 name: BetterMinecraft
 version: '${version}'
+authors:
+  - FrameDev
 
 main: ch.framedev.betterminecraft.main.BetterMinecraft
 api-version: '26.1'
@@ -7,33 +9,158 @@ api-version: '26.1'
 commands:
   sethome:
     description: Set a home location
+    permission: betterminecraft.home.set
+    usage: /sethome [name]
+
   home:
     description: Teleport to your home location
+    permission: betterminecraft.home.use
+    usage: /home [name]
+
   delhome:
     description: Delete a home location
+    permission: betterminecraft.home.del
+    usage: /delhome [name]
+
   homes:
     description: List your home locations
+    permission: betterminecraft.home.list
+    usage: /homes
+
   tpa:
     description: Request a teleport
+    permission: betterminecraft.tpa
+    usage: /tpa <player>
+
   tpaaccept:
     description: Accept a teleport request
+    permission: betterminecraft.tpa
+    usage: /tpaaccept
+
   tpadeny:
     description: Deny a teleport request
+    permission: betterminecraft.tpa
+    usage: /tpadeny
+
   tpahere:
     description: Request a teleport to your location
+    permission: betterminecraft.tpahere
+    usage: /tpahere <player>
+
   tpahereaccept:
     description: Accept a teleport request to your location
+    permission: betterminecraft.tpahere
+    usage: /tpahereaccept
+
   tpaheredeny:
     description: Deny a teleport request to your location
+    permission: betterminecraft.tpahere
+    usage: /tpaheredeny
+
   warp:
     description: Teleport to a warp location
+    permission: betterminecraft.warp.use
+    usage: /warp <name>
+
   setwarp:
     description: Set a warp location
+    permission: betterminecraft.warp.set
+    usage: /setwarp <name>
+
   delwarp:
     description: Delete a warp location
+    permission: betterminecraft.warp.del
+    usage: /delwarp <name>
+
   heal:
     description: Heal yourself or another player
+    permission: betterminecraft.heal
+    usage: /heal [player]
+
   feed:
     description: Feed yourself or another player
+    permission: betterminecraft.feed
+    usage: /feed [player]
+
   crafthistory:
     description: View your crafting history
+    permission: betterminecraft.crafthistory
+    usage: /crafthistory [player]
+
+  betterminecraft:
+    description: Main command for BetterMinecraft plugin
+    aliases:
+      - bm
+    permission: betterminecraft.admin
+    usage: /bm <subcommand> [args]
+
+permissions:
+  betterminecraft.admin:
+    description: Allows access to BetterMinecraft admin commands
+    default: op
+
+  betterminecraft.crafthistory:
+    description: Allows access to the crafting history command
+    default: op
+
+  betterminecraft.crafthistory.others:
+    description: Allows access to view other players' crafting history
+    default: op
+    children:
+      betterminecraft.crafthistory: true
+
+  betterminecraft.warp.del:
+    description: Allows access to delete warp locations
+    default: op
+
+  betterminecraft.warp.set:
+    description: Allows access to set warp locations
+    default: op
+
+  betterminecraft.warp.use:
+    description: Allows access to teleport to warp locations
+    default: op
+
+  betterminecraft.feed:
+    description: Allows access to feed yourself
+    default: op
+
+  betterminecraft.feed.others:
+    description: Allows access to feed other players
+    default: op
+    children:
+      betterminecraft.feed: true
+
+  betterminecraft.heal:
+    description: Allows access to heal yourself
+    default: op
+
+  betterminecraft.heal.others:
+    description: Allows access to heal other players
+    default: op
+    children:
+      betterminecraft.heal: true
+
+  betterminecraft.home.set:
+    description: Allows access to set home locations
+    default: op
+
+  betterminecraft.home.use:
+    description: Allows access to teleport to home locations
+    default: op
+
+  betterminecraft.home.del:
+    description: Allows access to delete home locations
+    default: op
+
+  betterminecraft.home.list:
+    description: Allows access to list home locations
+    default: op
+
+  betterminecraft.tpa:
+    description: Allows access to request teleportation
+    default: op
+
+  betterminecraft.tpahere:
+    description: Allows access to request teleportation to your location
+    default: op

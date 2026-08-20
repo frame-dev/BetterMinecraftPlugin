@@ -26,7 +26,7 @@ public class TpaHereDenyCommand implements CommandExecutor {
             sender.sendMessage(plugin.getPrefix() + "§cThis command can only be used by players.");
             return true;
         }
-        if(!player.hasPermission("betterminecraft.tpaheredeny")) {
+        if(!player.hasPermission("betterminecraft.tpahere")) {
             player.sendMessage(plugin.getPrefix() + "§cYou do not have permission to use this command.");
             return true;
         }

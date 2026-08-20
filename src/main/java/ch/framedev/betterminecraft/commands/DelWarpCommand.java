@@ -30,7 +30,7 @@ public class DelWarpCommand implements CommandExecutor, TabCompleter {
             sender.sendMessage(plugin.getPrefix() + "§cYou must be a player to use this command.");
             return true;
         }
-        if(!player.hasPermission("betterminecraft.delwarp")) {
+        if(!player.hasPermission("betterminecraft.warp.del")) {
             player.sendMessage(plugin.getPrefix() + "§cYou do not have permission to use this command.");
             return true;
         }

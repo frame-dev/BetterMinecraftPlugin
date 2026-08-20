@@ -78,7 +78,7 @@ public class HomeCommand implements CommandExecutor, TabCompleter {
             }
         }
         if(command.getName().equalsIgnoreCase("delhome")) {
-            if(!player.hasPermission("betterminecraft.delhome")) {
+            if(!player.hasPermission("betterminecraft.home.del")) {
                 player.sendMessage(plugin.getPrefix() + "§cYou do not have permission to delete homes.");
                 return true;
             }
@@ -98,7 +98,7 @@ public class HomeCommand implements CommandExecutor, TabCompleter {
             }
         }
         if(command.getName().equalsIgnoreCase("homes")) {
-            if(!player.hasPermission("betterminecraft.homes")) {
+            if(!player.hasPermission("betterminecraft.home.list")) {
                 player.sendMessage(plugin.getPrefix() + "§cYou do not have permission to use this command.");
                 return true;
             }

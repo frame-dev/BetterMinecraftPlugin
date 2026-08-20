@@ -64,7 +64,10 @@ public final class BetterMinecraft extends JavaPlugin {
 
         setExecutor("tpa", tpaCommand);
 
-        setExecutor("tpadeny", new TpaDenyCommand(this, tpaCommand));
+        TpaDenyCommand tpaDenyCommand = new TpaDenyCommand(this, tpaCommand);
+
+        setExecutor("tpadeny", tpaDenyCommand);
+        setTabCompleter("tpadeny", tpaDenyCommand);
 
         setExecutor("tpaaccept", new TpaAcceptCommand(this, tpaCommand));
 
@@ -92,6 +95,11 @@ public final class BetterMinecraft extends JavaPlugin {
         setExecutor("feed", new FeedCommand(this));
 
         setExecutor("crafthistory", new CraftHistoryCommand(this));
+
+        // Main Command
+        BetterMinecraftCommand betterMinecraftCommand = new BetterMinecraftCommand(this);
+        setExecutor("betterminecraft", betterMinecraftCommand);
+        setTabCompleter("betterminecraft", betterMinecraftCommand);
     }
 
     private void setExecutor(String commandName, org.bukkit.command.CommandExecutor executor) {
