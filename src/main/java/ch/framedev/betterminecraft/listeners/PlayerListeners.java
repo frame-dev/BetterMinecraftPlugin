@@ -81,7 +81,7 @@ public class PlayerListeners implements Listener {
         }
 
         if (clickedBlock.getType() == Material.CRAFTING_TABLE) {
-            handleCraftingTable(event, player, clickedBlock);
+            handleCraftingTable(event, player);
         }
 
         handleDoorsAndGates(event, clickedBlock);
@@ -127,10 +127,6 @@ public class PlayerListeners implements Listener {
 
         Recipe recipe = event.getRecipe();
 
-        if (recipe == null) {
-            return;
-        }
-
         craftHistory.addHistory(player, recipe);
     }
 
@@ -151,7 +147,7 @@ public class PlayerListeners implements Listener {
         }, 1L);
     }
 
-    private void handleCraftingTable(PlayerInteractEvent event, Player player, Block craftingTable) {
+    private void handleCraftingTable(PlayerInteractEvent event, Player player) {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
             return;
         }

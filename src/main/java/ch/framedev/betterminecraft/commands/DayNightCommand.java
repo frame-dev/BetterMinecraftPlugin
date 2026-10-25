@@ -31,7 +31,7 @@ public class DayNightCommand implements CommandExecutor {
 
     private boolean changeTime(CommandSender sender, long time, String timeName, String permission) {
         if (!sender.hasPermission(permission)) {
-            sender.sendMessage(plugin.getPrefix() + "§cYou don't have permission to change the daytime.");
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.no-permission"));
             return true;
         }
 
@@ -47,12 +47,11 @@ public class DayNightCommand implements CommandExecutor {
         }
 
         if (changedWorlds == 0) {
-            sender.sendMessage(plugin.getPrefix() + "§cNo world with a world clock was found.");
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("time.no-worlds"));
             return true;
         }
-
-        sender.sendMessage(plugin.getPrefix() + "§aTime has been changed to §6" + timeName + "§a.");
-
+        String weatherCommand = plugin.getMessagesManager().getMessage("time.time-message", "%time%", timeName);
+        sender.sendMessage(plugin.getPrefix() + weatherCommand);
         return true;
     }
 }

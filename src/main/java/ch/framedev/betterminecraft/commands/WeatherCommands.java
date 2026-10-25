@@ -30,7 +30,7 @@ public class WeatherCommands implements CommandExecutor {
 
     private boolean changeWeather(CommandSender sender, Weather weather, String permission) {
         if (!sender.hasPermission(permission)) {
-            sender.sendMessage(plugin.getPrefix() + "§cYou don't have permission to change the weather.");
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.no-permission"));
             return true;
         }
 
@@ -67,11 +67,12 @@ public class WeatherCommands implements CommandExecutor {
         }
 
         if (changedWorlds == 0) {
-            sender.sendMessage(plugin.getPrefix() + "§cNo supported world was found.");
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("weather.no-worlds"));
             return true;
         }
 
-        sender.sendMessage(plugin.getPrefix() + "§aWeather has been changed to §6" + weather.getDisplayName() + "§a.");
+        String weatherCommand = plugin.getMessagesManager().getMessage("weather.weather-message", "%weather%", weather.getDisplayName());
+        sender.sendMessage(plugin.getPrefix() + weatherCommand);
 
         return true;
     }

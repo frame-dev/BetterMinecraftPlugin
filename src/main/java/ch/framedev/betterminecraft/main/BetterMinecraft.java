@@ -3,6 +3,7 @@ package ch.framedev.betterminecraft.main;
 import ch.framedev.betterminecraft.commands.*;
 import ch.framedev.betterminecraft.listeners.PlayerListeners;
 import ch.framedev.betterminecraft.managers.CraftHistory;
+import ch.framedev.betterminecraft.managers.MessagesManager;
 import ch.framedev.betterminecraft.managers.RecipesManager;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -10,6 +11,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class BetterMinecraft extends JavaPlugin {
 
     private static BetterMinecraft instance;
+
+    private MessagesManager messagesManager;
 
     private RecipesManager recipesManager;
     private CraftHistory craftHistory;
@@ -48,6 +51,12 @@ public final class BetterMinecraft extends JavaPlugin {
         getConfig().options().copyDefaults(true);
 
         saveConfig();
+
+        messagesManager = new MessagesManager(this);
+    }
+
+    public MessagesManager getMessagesManager() {
+        return messagesManager;
     }
 
     private void registerCommands() {
@@ -114,6 +123,14 @@ public final class BetterMinecraft extends JavaPlugin {
         setExecutor("rain", weatherCommands);
         setExecutor("thunder", weatherCommands);
 
+        // Playertime Command
+        PlayerTimeCommand playerTimeCommand = new PlayerTimeCommand(this);
+        setExecutor("playertime", playerTimeCommand);
+
+        // Playerweather Command
+        PlayerWeatherCommand playerWeatherCommand = new PlayerWeatherCommand(this);
+        setExecutor("playerweather", playerWeatherCommand);
+
         // Main Command
         BetterMinecraftCommand betterMinecraftCommand = new BetterMinecraftCommand(this);
         setExecutor("betterminecraft", betterMinecraftCommand);
@@ -153,7 +170,7 @@ public final class BetterMinecraft extends JavaPlugin {
     }
 
     public String getPrefix() {
-        String prefix = getMessageFromConfig("prefix", "§a[§6BetterMinecraft§a]§r ");
+        String prefix = getMessageFromConfig("prefix", "§a[§6BetterMinecraft§a]§6 >> §r");
         return prefix.replace('&', '§');
     }
 

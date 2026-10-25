@@ -2,6 +2,7 @@ name: BetterMinecraft
 version: '${version}'
 authors:
   - FrameDev
+website: https://framedev.ch
 
 main: ch.framedev.betterminecraft.main.BetterMinecraft
 api-version: '26.1'
@@ -138,6 +139,24 @@ commands:
       - storm
     permission: betterminecraft.thunder
 
+  playertime:
+    description: Change the time for a player
+    permission: betterminecraft.playertime
+    aliases:
+      - ptime
+      - pltime
+      - player-time
+    usage: /playertime <day|night|reset>
+
+  playerweather:
+    description: Change the weather for a player
+    permission: betterminecraft.playerweather
+    aliases:
+      - pweather
+      - plweather
+      - player-weather
+    usage: /playerweather <clear|rain|reset>
+
 permissions:
   betterminecraft.admin:
     description: Allows access to BetterMinecraft admin commands
@@ -256,3 +275,9 @@ permissions:
   betterminecraft.thunder:
     description: Allows changing the weather to thunder
     default: false
+  betterminecraft.playertime:
+    description: Allows changing the time for a player
+    default: op
+  betterminecraft.playerweather:
+    description: Allows changing the weather for a player
+    default: op

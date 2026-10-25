@@ -42,6 +42,6 @@ public class TpaAcceptCommand implements CommandExecutor {
         sender.sendMessage(plugin.getPrefix() + "§aTeleporting to " + target.getName() + ".");
         target.sendMessage(plugin.getPrefix() + "§a" + player.getName() + " has accepted your teleport request.");
         tpaCommand.removePendingRequest(player);
-        return false;
+        return true;
     }
 }

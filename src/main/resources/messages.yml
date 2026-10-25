@@ -1,0 +1,19 @@
+general:
+  no-permission: "&4You do not have permission to perform this action!"
+  only-player: "&4Only players can perform this action!"
+playertime:
+  usage: "&eUsage: &7/playertime <day|night|reset>"
+  day: "&aPlayer Time set to &6day!"
+  night: "&aPlayer Time set to &6night!"
+  reset: "&aPlayer Time reset to server time!"
+playerweather:
+  usage: "&eUsage: &7/playerweather <clear|rain|thunder|reset>"
+  clear: "&aPlayer Weather set to &6clear!"
+  rain: "&aPlayer Weather set to &6rain!"
+  reset: "&aPlayer Weather reset to server weather!"
+time:
+  time-message: "&aTime set to &6%time%!"
+  no-worlds: "&4No usable worlds found to set time!"
+weather:
+  no-worlds: "&4No usable worlds found to set time!"
+  weather-message: "&aWeather set to &6%weather%!"

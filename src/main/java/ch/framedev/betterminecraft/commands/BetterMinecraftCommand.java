@@ -39,12 +39,13 @@ public class BetterMinecraftCommand implements CommandExecutor, TabCompleter {
                     return true;
                 }
                 case "version": {
-                    sender.sendMessage(plugin.getPrefix() + "§aBetterMinecraft plugin version: " + plugin.getDescription().getVersion());
+                    sender.sendMessage(plugin.getPrefix() + "§aBetterMinecraft plugin version: §6" + plugin.getDescription().getVersion());
                     return true;
                 }
                 case "info": {
-                    sender.sendMessage(plugin.getPrefix() + "§aBetterMinecraft plugin version: " + plugin.getDescription().getVersion());
-                    sender.sendMessage(plugin.getPrefix() + "§aAuthor: " + plugin.getDescription().getAuthors());
+                    sender.sendMessage(plugin.getPrefix() + "§aBetterMinecraft plugin version: §6" + plugin.getDescription().getVersion());
+                    sender.sendMessage(plugin.getPrefix() + "§aAuthor: §6" + plugin.getDescription().getAuthors());
+                    sender.sendMessage(plugin.getPrefix() + "§aWebsite: §6" + plugin.getDescription().getWebsite());
                     return true;
                 }
                 case "help": {
