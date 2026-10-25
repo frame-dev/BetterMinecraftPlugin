@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -147,7 +146,7 @@ public class CraftHistory implements Listener {
         List<CraftHistoryEntry> history = new ArrayList<>(getPlayerHistory(targetId));
 
         if (history.isEmpty()) {
-            viewer.sendMessage(plugin.getPrefix() + "§c" + targetName + " has no crafting history.");
+            viewer.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("crafthistory.empty", "%player%", String.valueOf(targetName)));
 
             return;
         }
@@ -160,7 +159,7 @@ public class CraftHistory implements Listener {
 
         CraftHistoryHolder holder = new CraftHistoryHolder(targetId, targetName, page, filter);
 
-        Inventory inventory = Bukkit.createInventory(holder, INVENTORY_SIZE, "§aCrafting History §f" + targetName + " §7(" + (page + 1) + "/" + (maxPage + 1) + ")");
+        Inventory inventory = Bukkit.createInventory(holder, INVENTORY_SIZE, plugin.getMessagesManager().getMessage("crafthistory.gui.title", "%player%", String.valueOf(targetName), "%page%", String.valueOf(page + 1), "%pages%", String.valueOf(maxPage + 1)));
 
         int startIndex = page * PAGE_SIZE;
 
@@ -184,7 +183,7 @@ public class CraftHistory implements Listener {
             ItemMeta meta = displayItem.getItemMeta();
 
             if (meta != null) {
-                meta.setLore(List.of("§7Recipe: §f" + entry.recipe(), "", "§7Total crafted: §a" + entry.amount() + "x", "§7Last crafted: §e" + entry.lastCraftedFormatted()));
+                meta.setLore(List.of(plugin.getMessagesManager().getMessage("crafthistory.gui.recipe", "%recipe%", String.valueOf(entry.recipe())), "", plugin.getMessagesManager().getMessage("crafthistory.gui.amount", "%amount%", String.valueOf(entry.amount())), plugin.getMessagesManager().getMessage("crafthistory.gui.last-crafted", "%date%", String.valueOf(entry.lastCraftedFormatted()))));
 
                 displayItem.setItemMeta(meta);
             }
@@ -199,55 +198,56 @@ public class CraftHistory implements Listener {
         }
 
         if (page > 0) {
-            inventory.setItem(PREVIOUS_PAGE_SLOT, createGuiItem(Material.ARROW, "§ePrevious Page", "", "§7Page §f" + page));
+            inventory.setItem(PREVIOUS_PAGE_SLOT, createGuiItem(Material.ARROW, plugin.getMessagesManager().getMessage("crafthistory.gui.previous-page"), "", plugin.getMessagesManager().getMessage("crafthistory.gui.page", "%page%", String.valueOf(page))));
         }
 
         inventory.setItem(FILTER_SLOT, createFilterItem(filter));
 
-        inventory.setItem(CLOSE_SLOT, createGuiItem(Material.BARRIER, "§cClose", "", "§7Click to close."));
+        inventory.setItem(CLOSE_SLOT, createGuiItem(Material.BARRIER, plugin.getMessagesManager().getMessage("crafthistory.gui.close"), "", plugin.getMessagesManager().getMessage("crafthistory.gui.close-hint")));
 
         if (page < maxPage) {
-            inventory.setItem(NEXT_PAGE_SLOT, createGuiItem(Material.ARROW, "§eNext Page", "", "§7Page §f" + (page + 2)));
+            inventory.setItem(NEXT_PAGE_SLOT, createGuiItem(Material.ARROW, plugin.getMessagesManager().getMessage("crafthistory.gui.next-page"), "", plugin.getMessagesManager().getMessage("crafthistory.gui.page", "%page%", String.valueOf(page + 2))));
         }
 
         viewer.openInventory(inventory);
     }
 
     public void sortHistory(List<CraftHistoryEntry> history, CraftHistoryFilter filter) {
-        switch (filter) {
+        history.sort((first, second) -> {
+            if (first == second) return 0;
+            if (first == null) return 1;
+            if (second == null) return -1;
 
-            case LAST_CRAFTED_NEWEST ->
-                    history.sort(Comparator.comparingLong(CraftHistoryEntry::lastCrafted).reversed());
-
-            case LAST_CRAFTED_OLDEST -> history.sort(Comparator.comparingLong(CraftHistoryEntry::lastCrafted));
-
-            case AMOUNT_HIGHEST -> history.sort(Comparator.comparingInt(CraftHistoryEntry::amount).reversed());
-
-            case AMOUNT_LOWEST -> history.sort(Comparator.comparingInt(CraftHistoryEntry::amount));
-        }
+            return switch (filter) {
+                case LAST_CRAFTED_NEWEST -> Long.compare(second.lastCrafted(), first.lastCrafted());
+                case LAST_CRAFTED_OLDEST -> Long.compare(first.lastCrafted(), second.lastCrafted());
+                case AMOUNT_HIGHEST -> Integer.compare(second.amount(), first.amount());
+                case AMOUNT_LOWEST -> Integer.compare(first.amount(), second.amount());
+            };
+        });
     }
 
     private ItemStack createFilterItem(CraftHistoryFilter filter) {
         String selected = switch (filter) {
 
-            case LAST_CRAFTED_NEWEST -> "§aLast Crafted: Newest";
+            case LAST_CRAFTED_NEWEST -> plugin.getMessagesManager().getMessage("crafthistory.gui.selected-newest");
 
-            case LAST_CRAFTED_OLDEST -> "§aLast Crafted: Oldest";
+            case LAST_CRAFTED_OLDEST -> plugin.getMessagesManager().getMessage("crafthistory.gui.selected-oldest");
 
-            case AMOUNT_HIGHEST -> "§aAmount: Highest";
+            case AMOUNT_HIGHEST -> plugin.getMessagesManager().getMessage("crafthistory.gui.selected-highest");
 
-            case AMOUNT_LOWEST -> "§aAmount: Lowest";
+            case AMOUNT_LOWEST -> plugin.getMessagesManager().getMessage("crafthistory.gui.selected-lowest");
         };
 
-        return createGuiItem(Material.HOPPER, "§eSort / Filter", "", "§7Current:", selected, "", "§eClick to change", "", getFilterLine(filter, CraftHistoryFilter.LAST_CRAFTED_NEWEST, "Last Crafted: Newest"), getFilterLine(filter, CraftHistoryFilter.LAST_CRAFTED_OLDEST, "Last Crafted: Oldest"), getFilterLine(filter, CraftHistoryFilter.AMOUNT_HIGHEST, "Amount: Highest"), getFilterLine(filter, CraftHistoryFilter.AMOUNT_LOWEST, "Amount: Lowest"));
+        return createGuiItem(Material.HOPPER, plugin.getMessagesManager().getMessage("crafthistory.gui.filter"), "", plugin.getMessagesManager().getMessage("crafthistory.gui.current"), selected, "", plugin.getMessagesManager().getMessage("crafthistory.gui.filter-hint"), "", getFilterLine(filter, CraftHistoryFilter.LAST_CRAFTED_NEWEST, plugin.getMessagesManager().getMessage("crafthistory.gui.newest")), getFilterLine(filter, CraftHistoryFilter.LAST_CRAFTED_OLDEST, plugin.getMessagesManager().getMessage("crafthistory.gui.oldest")), getFilterLine(filter, CraftHistoryFilter.AMOUNT_HIGHEST, plugin.getMessagesManager().getMessage("crafthistory.gui.highest")), getFilterLine(filter, CraftHistoryFilter.AMOUNT_LOWEST, plugin.getMessagesManager().getMessage("crafthistory.gui.lowest")));
     }
 
     private String getFilterLine(CraftHistoryFilter current, CraftHistoryFilter filter, String name) {
         if (current == filter) {
-            return "§a➤ " + name;
+            return plugin.getMessagesManager().getMessage("crafthistory.gui.filter-selected", "%filter%", String.valueOf(name));
         }
 
-        return "§7  " + name;
+        return plugin.getMessagesManager().getMessage("crafthistory.gui.filter-unselected", "%filter%", String.valueOf(name));
     }
 
     private ItemStack createGuiItem(Material material, String name, String... lore) {

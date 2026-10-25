@@ -8,8 +8,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Locale;
@@ -24,34 +24,34 @@ public class WarpCommand implements CommandExecutor, TabCompleter {
     }
 
     @Override
-    public boolean onCommand(@NonNull CommandSender sender, @NonNull Command command, @NonNull String label, @NonNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(!(sender instanceof Player player)) {
-            sender.sendMessage(plugin.getPrefix() + "§cOnly Player can use this command!");
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.only-player"));
             return true;
         }
         if (!command.getName().equalsIgnoreCase("warp")) {
             return true;
         }
         if(!player.hasPermission("betterminecraft.warp.use")) {
-            sender.sendMessage(plugin.getPrefix() + "§cYou don't have permission to use this command!");
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.no-permission"));
             return true;
         }
         if(args.length != 1) {
-            player.sendMessage(plugin.getPrefix() + "§c/warp <name>!");
+            player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("warp.usage"));
             return true;
         }
         Location location = locationManager.getLocation("warps." + args[0]);
         if(location == null) {
-            player.sendMessage(plugin.getPrefix() + "§cThe warp with the name '" + args[0] + "' doesn't exist!");
+            player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("warp.not-found", "%warp%", String.valueOf(args[0])));
             return true;
         }
         player.teleport(location);
-        player.sendMessage(plugin.getPrefix() + "§aYou have been teleported to the warp with the name '" + args[0] + "'!");
+        player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("warp.success", "%warp%", String.valueOf(args[0])));
         return true;
     }
 
     @Override
-    public @Nullable List<String> onTabComplete(@NonNull CommandSender sender, @NonNull Command command, @NonNull String label, @NonNull String[] args) {
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(!command.getName().equalsIgnoreCase("warp"))
             return List.of();
         if(args.length != 1) return List.of();

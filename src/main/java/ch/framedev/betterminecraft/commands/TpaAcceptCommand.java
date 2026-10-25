@@ -22,25 +22,25 @@ public class TpaAcceptCommand implements CommandExecutor {
             return false;
         }
         if(!(sender instanceof Player player)) {
-            sender.sendMessage(plugin.getPrefix() + "§cYou must be a player to use this command.");
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.only-player"));
             return true;
         }
         if(!player.hasPermission("betterminecraft.tpa")) {
-            sender.sendMessage(plugin.getPrefix() + "§cYou do not have permission to use this command.");
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.no-permission"));
             return true;
         }
         if(args.length != 0) {
-            sender.sendMessage(plugin.getPrefix() + "§cUsage: /tpaaccept");
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("tpaaccept.usage"));
             return true;
         }
         if(!tpaCommand.hasPendingRequest(player)) {
-            sender.sendMessage(plugin.getPrefix() + "§cYou do not have a pending teleport request.");
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("tpaaccept.no-request"));
             return true;
         }
         Player target = tpaCommand.getPendingRequest(player);
         player.teleport(target);
-        sender.sendMessage(plugin.getPrefix() + "§aTeleporting to " + target.getName() + ".");
-        target.sendMessage(plugin.getPrefix() + "§a" + player.getName() + " has accepted your teleport request.");
+        sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("tpaaccept.teleport", "%player%", String.valueOf(target.getName())));
+        target.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("tpaaccept.accepted", "%player%", String.valueOf(player.getName())));
         tpaCommand.removePendingRequest(player);
         return true;
     }

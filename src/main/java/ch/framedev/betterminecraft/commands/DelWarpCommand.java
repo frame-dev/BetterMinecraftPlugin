@@ -7,8 +7,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Locale;
@@ -23,28 +23,28 @@ public class DelWarpCommand implements CommandExecutor, TabCompleter {
     }
 
     @Override
-    public boolean onCommand(@NonNull CommandSender sender, @NonNull Command command, @NonNull String label, @NonNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(!command.getName().equalsIgnoreCase("delwarp"))
             return true;
         if(!(sender instanceof Player player)) {
-            sender.sendMessage(plugin.getPrefix() + "§cYou must be a player to use this command.");
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.only-player"));
             return true;
         }
         if(!player.hasPermission("betterminecraft.warp.del")) {
-            player.sendMessage(plugin.getPrefix() + "§cYou do not have permission to use this command.");
+            player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.no-permission"));
             return true;
         }
         if(args.length != 1) {
-            player.sendMessage(plugin.getPrefix() + "§cUsage: /delwarp <warpname>");
+            player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("delwarp.usage"));
             return true;
         }
         locationManager.removeLocation("warps." + args[0]);
-        player.sendMessage(plugin.getPrefix() + "§aWarp with the name '" + args[0] + "' deleted successfully.");
+        player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("delwarp.success", "%warp%", String.valueOf(args[0])));
         return true;
     }
 
     @Override
-    public @Nullable List<String> onTabComplete(@NonNull CommandSender sender, @NonNull Command command, @NonNull String label, @NonNull String[] args) {
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(!command.getName().equalsIgnoreCase("delwarp"))
             return List.of();
         if(args.length != 1) return List.of();

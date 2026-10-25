@@ -6,7 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jspecify.annotations.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 public class SetWarpCommand implements CommandExecutor {
 
@@ -17,25 +17,25 @@ public class SetWarpCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(@NonNull CommandSender sender, @NonNull Command command, @NonNull String label, @NonNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         LocationManager locationManager = new LocationManager();
         if(!command.getName().equalsIgnoreCase("setwarp"))
             return true;
         if(!(sender instanceof Player player)) {
-            sender.sendMessage(plugin.getPrefix() + "§cYou have to be a player to execute this command!");
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.only-player"));
             return true;
         }
-        if(!player.hasPermission("betbetterminecraft.warp.set")) {
-            sender.sendMessage(plugin.getPrefix() + "§cYou don't have permission to execute this command!");
+        if(!player.hasPermission("betterminecraft.warp.set")) {
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.no-permission"));
             return true;
         }
         if(args.length != 1) {
-            player.sendMessage(plugin.getPrefix() + "§cYou have to specify a name for the warp!");
-            player.sendMessage(plugin.getPrefix() + "§c/setwarp <name>!");
+            player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("setwarp.missing-name"));
+            player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("setwarp.usage"));
             return true;
         }
         locationManager.setLocation("warps." + args[0], player.getLocation());
-        player.sendMessage(plugin.getPrefix() + "§aYou have successfully set the warp with the name '" + args[0] + "'!");
+        player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("setwarp.success", "%warp%", String.valueOf(args[0])));
         return true;
     }
 }

@@ -5,7 +5,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jspecify.annotations.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 public class TpaHereDenyCommand implements CommandExecutor {
 
@@ -18,30 +18,30 @@ public class TpaHereDenyCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(@NonNull CommandSender sender, @NonNull Command command, @NonNull String label, @NonNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(!command.getName().equalsIgnoreCase("tpaheredeny")) {
             return true;
         }
         if(!(sender instanceof Player player)) {
-            sender.sendMessage(plugin.getPrefix() + "§cThis command can only be used by players.");
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.only-player"));
             return true;
         }
         if(!player.hasPermission("betterminecraft.tpahere")) {
-            player.sendMessage(plugin.getPrefix() + "§cYou do not have permission to use this command.");
+            player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.no-permission"));
             return true;
         }
         if(!tpaHereCommand.hasPendingRequest(player)) {
-            player.sendMessage(plugin.getPrefix() + "§cYou have no pending teleport requests.");
+            player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("tpaheredeny.no-request"));
             return true;
         }
         Player requester = tpaHereCommand.getPendingRequest(player);
         if(requester == null) {
-            player.sendMessage(plugin.getPrefix() + "§cThe player who sent the request is no longer online.");
+            player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("tpaheredeny.offline"));
             tpaHereCommand.removePendingRequest(player);
             return true;
         }
-        requester.sendMessage(plugin.getPrefix() + "§cYour teleport request to " + player.getName() + " has been denied.");
-        player.sendMessage(plugin.getPrefix() + "§cYou have denied the teleport request from " + requester.getName() + ".");
+        requester.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("tpaheredeny.request-denied", "%player%", String.valueOf(player.getName())));
+        player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("tpaheredeny.denied", "%player%", String.valueOf(requester.getName())));
         tpaHereCommand.removePendingRequest(player);
         return true;
     }

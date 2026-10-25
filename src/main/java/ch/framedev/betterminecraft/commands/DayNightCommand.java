@@ -5,7 +5,7 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.jspecify.annotations.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 public class DayNightCommand implements CommandExecutor {
 
@@ -19,7 +19,7 @@ public class DayNightCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(@NonNull CommandSender sender, @NonNull Command command, @NonNull String label, @NonNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         return switch (command.getName().toLowerCase()) {
             case "day" -> changeTime(sender, DAY_TIME, "Day", "betterminecraft.day");
 

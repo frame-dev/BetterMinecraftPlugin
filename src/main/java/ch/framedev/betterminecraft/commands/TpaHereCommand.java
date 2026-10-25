@@ -5,7 +5,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jspecify.annotations.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,30 +20,30 @@ public class TpaHereCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(@NonNull CommandSender sender, @NonNull Command command, @NonNull String label, @NonNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(!command.getName().equalsIgnoreCase("tpahere")) {
             return true;
         }
         if(!(sender instanceof Player player)) {
-            sender.sendMessage(plugin.getPrefix() + "§cThis command can only be used by players.");
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.only-player"));
             return true;
         }
         if(!player.hasPermission("betterminecraft.tpahere")) {
-            player.sendMessage(plugin.getPrefix() + "§cYou do not have permission to use this command.");
+            player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.no-permission"));
             return true;
         }
         if(args.length != 1) {
-            sender.sendMessage(plugin.getPrefix() + "§cUsage: /tpahere <player>");
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("tpahere.usage"));
             return true;
         }
         Player target = sender.getServer().getPlayer(args[0]);
         if(target == null) {
-            sender.sendMessage(plugin.getPrefix() + "§cPlayer not found.");
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.player-not-found"));
             return true;
         }
         pendingTeleports.put(target, player);
-        sender.sendMessage(plugin.getPrefix() + "§aTeleport request sent to " + target.getName() + ".");
-        target.sendMessage(plugin.getPrefix() + "§a" + player.getName() + " wants you to teleport to them. Type /tpahereaccept to accept.");
+        sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("tpahere.sent", "%player%", String.valueOf(target.getName())));
+        target.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("tpahere.received", "%player%", String.valueOf(player.getName())));
         return true;
     }
 

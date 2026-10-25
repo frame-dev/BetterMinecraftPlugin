@@ -37,7 +37,7 @@ public class RecipesManager {
     public void init() {
         List<Boolean> recipesResultList = setupCrafting();
 
-        long successfulCount = recipesResultList.stream().filter(Boolean::booleanValue).count();
+        long successfulCount = recipesResultList.stream().filter(result -> Boolean.TRUE.equals(result)).count();
 
         long failedCount = recipesResultList.size() - successfulCount;
 

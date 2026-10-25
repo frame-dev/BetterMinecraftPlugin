@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Objects;
 
 public class MessagesManager {
 
@@ -24,7 +23,8 @@ public class MessagesManager {
     }
 
     public void reload() {
-        if (!file.exists()) {
+        boolean newFile = !file.exists();
+        if (newFile) {
             plugin.saveResource("messages.yml", false);
         }
 
@@ -33,6 +33,10 @@ public class MessagesManager {
 
         try {
             config.load(file);
+
+            // Keep existing custom text when upgrading from config.yml messages.
+            migrateLegacyMessage("general.prefix", "prefix", newFile);
+            migrateLegacyMessage("warn.before-tool-break", "warn.beforeToolBreakMessage", newFile);
 
             try (InputStream stream = plugin.getResource("messages.yml")) {
                 if (stream == null) {
@@ -87,6 +91,12 @@ public class MessagesManager {
         }
 
         return ChatColor.translateAlternateColorCodes('&', message);
+    }
+
+    private void migrateLegacyMessage(String path, String legacyPath, boolean newFile) {
+        if ((newFile || !config.isSet(path)) && plugin.getConfig().isString(legacyPath)) {
+            config.set(path, plugin.getConfig().getString(legacyPath));
+        }
     }
 
     public String getMessage(String path, String... replacements) {

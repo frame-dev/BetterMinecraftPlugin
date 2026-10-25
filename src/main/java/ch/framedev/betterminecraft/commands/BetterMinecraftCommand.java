@@ -2,8 +2,8 @@ package ch.framedev.betterminecraft.commands;
 
 import ch.framedev.betterminecraft.main.BetterMinecraft;
 import org.bukkit.command.*;
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;
@@ -17,35 +17,36 @@ public class BetterMinecraftCommand implements CommandExecutor, TabCompleter {
     }
 
     @Override
-    public boolean onCommand(@NonNull CommandSender sender, @NonNull Command command, @NonNull String label, @NonNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(!command.getName().equalsIgnoreCase("betterminecraft")) {
             return true;
         }
         if(!sender.hasPermission("betterminecraft.admin")) {
-            sender.sendMessage(plugin.getPrefix() + "§cYou do not have permission to use this command.");
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.no-permission"));
             return true;
         }
         if(args.length == 0) {
-            sender.sendMessage(plugin.getPrefix() + "§aBetterMinecraft plugin version: " + plugin.getDescription().getVersion());
-            sender.sendMessage(plugin.getPrefix() + "§aAuthor: " + plugin.getDescription().getAuthors());
-            sender.sendMessage(plugin.getPrefix() + "§aUse /betterminecraft reload to reload the plugin.");
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.version", "%version%", String.valueOf(plugin.getDescription().getVersion())));
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.author", "%authors%", String.valueOf(plugin.getDescription().getAuthors())));
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.reload-hint"));
             return true;
         }
         if(args.length == 1) {
             switch (args[0]) {
                 case "reload": {
                     plugin.reloadConfig();
-                    sender.sendMessage(plugin.getPrefix() + "§aBetterMinecraft plugin reloaded.");
+                    plugin.getMessagesManager().reload();
+                    sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.reloaded"));
                     return true;
                 }
                 case "version": {
-                    sender.sendMessage(plugin.getPrefix() + "§aBetterMinecraft plugin version: §6" + plugin.getDescription().getVersion());
+                    sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.version", "%version%", String.valueOf(plugin.getDescription().getVersion())));
                     return true;
                 }
                 case "info": {
-                    sender.sendMessage(plugin.getPrefix() + "§aBetterMinecraft plugin version: §6" + plugin.getDescription().getVersion());
-                    sender.sendMessage(plugin.getPrefix() + "§aAuthor: §6" + plugin.getDescription().getAuthors());
-                    sender.sendMessage(plugin.getPrefix() + "§aWebsite: §6" + plugin.getDescription().getWebsite());
+                    sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.version", "%version%", String.valueOf(plugin.getDescription().getVersion())));
+                    sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.author", "%authors%", String.valueOf(plugin.getDescription().getAuthors())));
+                    sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.website", "%website%", String.valueOf(plugin.getDescription().getWebsite())));
                     return true;
                 }
                 case "help": {
@@ -61,15 +62,15 @@ public class BetterMinecraftCommand implements CommandExecutor, TabCompleter {
         return false;
     }
 
-    private void sendCommands(@NonNull CommandSender sender) {
+    private void sendCommands(@NotNull CommandSender sender) {
         Map<String, Map<String, Object>> commands = plugin.getDescription().getCommands();
 
         if (commands.isEmpty()) {
-            sender.sendMessage(plugin.getPrefix() + "§cNo commands available.");
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.no-commands"));
             return;
         }
 
-        sender.sendMessage(plugin.getPrefix() + "§aAvailable commands:");
+        sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.commands-header"));
 
         for (Map.Entry<String, Map<String, Object>> entry : commands.entrySet()) {
             String commandName = entry.getKey();
@@ -85,38 +86,30 @@ public class BetterMinecraftCommand implements CommandExecutor, TabCompleter {
                 continue;
             }
 
-            StringBuilder commandLine = new StringBuilder()
-                    .append(plugin.getPrefix())
-                    .append("§6/")
-                    .append(commandName);
-
-            if (description != null && !description.isBlank()) {
-                commandLine.append(" §8- §f").append(description);
-            }
-
-            sender.sendMessage(commandLine.toString());
+            String commandPath = description != null && !description.isBlank()
+                    ? "betterminecraft.command-entry-description"
+                    : "betterminecraft.command-entry";
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage(
+                    commandPath, "%command%", commandName, "%description%", description == null ? "" : description));
 
             if (permission != null && !permission.isBlank()) {
                 sender.sendMessage(
                         plugin.getPrefix()
-                                + "§8  ├ §7Permission: §f"
-                                + permission
+                                + plugin.getMessagesManager().getMessage("betterminecraft.command-permission", "%permission%", permission)
                 );
             }
 
             if (!aliases.isEmpty()) {
                 sender.sendMessage(
                         plugin.getPrefix()
-                                + "§8  ├ §7Aliases: §f/"
-                                + String.join(", /", aliases)
+                                + plugin.getMessagesManager().getMessage("betterminecraft.command-aliases", "%aliases%", String.join(", /", aliases))
                 );
             }
 
             if (usage != null && !usage.isBlank()) {
                 sender.sendMessage(
                         plugin.getPrefix()
-                                + "§8  └ §7Usage: §f"
-                                + usage.replace("<command>", commandName)
+                                + plugin.getMessagesManager().getMessage("betterminecraft.command-usage", "%usage%", usage.replace("<command>", commandName))
                 );
             }
         }
@@ -145,7 +138,7 @@ public class BetterMinecraftCommand implements CommandExecutor, TabCompleter {
     }
 
     @Override
-    public @Nullable List<String> onTabComplete(@NonNull CommandSender sender, @NonNull Command command, @NonNull String label, @NonNull String[] args) {
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(!command.getName().equalsIgnoreCase("betterminecraft")) {
             return List.of();
         }
@@ -156,11 +149,11 @@ public class BetterMinecraftCommand implements CommandExecutor, TabCompleter {
         return List.of();
     }
 
-    private void sendHelp(@NonNull CommandSender sender) {
-        sender.sendMessage(plugin.getPrefix() + "§a/betterminecraft reload - Reloads the plugin.");
-        sender.sendMessage(plugin.getPrefix() + "§a/betterminecraft help - Shows this help message.");
-        sender.sendMessage(plugin.getPrefix() + "§a/betterminecraft version - Shows the plugin version.");
-        sender.sendMessage(plugin.getPrefix() + "§a/betterminecraft info - Shows plugin information.");
-        sender.sendMessage(plugin.getPrefix() + "§a/betterminecraft commands - Shows all available commands.");
+    private void sendHelp(@NotNull CommandSender sender) {
+        sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.help.reload"));
+        sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.help.help"));
+        sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.help.version"));
+        sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.help.info"));
+        sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.help.commands"));
     }
 }

@@ -8,11 +8,12 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class GameModeCommand implements CommandExecutor, TabCompleter {
 
@@ -23,10 +24,10 @@ public class GameModeCommand implements CommandExecutor, TabCompleter {
     }
 
     @Override
-    public boolean onCommand(@NonNull CommandSender sender, @NonNull Command command, @NonNull String label, @NonNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(args.length == 1) {
             if(!(sender instanceof Player)) {
-                sender.sendMessage(plugin.getPrefix() + "§cOnly players can change their gamemode!");
+                sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.only-player"));
                 return true;
             }
             changeGamemode(sender, null, args[0]);
@@ -35,20 +36,30 @@ public class GameModeCommand implements CommandExecutor, TabCompleter {
             changeGamemode(sender, args[1], args[0]);
             return true;
         } else {
-            sender.sendMessage(plugin.getPrefix() + "§cUsage: /gamemode <gamemode> [player]");
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("gamemode.usage"));
             return true;
         }
     }
 
     @Override
-    public @Nullable List<String> onTabComplete(@NonNull CommandSender sender, @NonNull Command command, @NonNull String label, @NonNull String[] args) {
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         List<String> gameModes = List.of("survival", "s", "0", "creative", "c", "1",
                 "adventure", "a", "2", "spectator", "sp", "3");
         if(args.length == 1) {
             return new ArrayList<>(gameModes.stream().filter(gameMode -> gameMode.toLowerCase().startsWith(args[0].toLowerCase())).toList());
         }
         if(args.length == 2) {
-            return new ArrayList<>(plugin.getServer().getOnlinePlayers().stream().map(Player::getName).filter(player -> player.toLowerCase().startsWith(args[1].toLowerCase())).toList());
+            List<String> playerNames = new ArrayList<>();
+            String input = args[1].toLowerCase(Locale.ROOT);
+            for(Player player : plugin.getServer().getOnlinePlayers()) {
+                if(player == null)
+                    continue;
+                String playerName = player.getName();
+                if(playerName.toLowerCase(Locale.ROOT).startsWith(input)) {
+                    playerNames.add(playerName);
+                }
+            }
+            return playerNames;
         }
         return List.of();
     }
@@ -60,13 +71,13 @@ public class GameModeCommand implements CommandExecutor, TabCompleter {
                 case "creative", "c" -> setGameMode(source, targetString, GameMode.CREATIVE);
                 case "adventure", "a" -> setGameMode(source, targetString, GameMode.ADVENTURE);
                 case "spectator", "sp" -> setGameMode(source, targetString, GameMode.SPECTATOR);
-                default -> source.sendMessage(plugin.getPrefix() + "§cInvalid gamemode! '" + input + "'");
+                default -> source.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("gamemode.invalid", "%gamemode%", String.valueOf(input)));
             };
         } else {
             int number = Integer.parseInt(input);
             GameMode gameMode = gameModeByInt(number);
             if(gameMode == null) {
-                source.sendMessage(plugin.getPrefix() + "§cInvalid gamemode! '" + input + "'");
+                source.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("gamemode.invalid", "%gamemode%", String.valueOf(input)));
             }
             setGameMode(source, targetString, gameMode);
         }
@@ -84,24 +95,24 @@ public class GameModeCommand implements CommandExecutor, TabCompleter {
     private void setGameMode(CommandSender source, String targetString, GameMode gameMode) {
         if (source instanceof Player player && targetString == null) {
             if (!source.hasPermission("betterminecraft.gamemode")) {
-                source.sendMessage(plugin.getPrefix() + "§cYou don't have permission to change your gamemode!");
+                source.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.no-permission"));
                 return;
             }
             player.setGameMode(gameMode);
-            player.sendMessage(plugin.getPrefix() + "§aYou have changed your gamemode to " + gameMode.toString().toLowerCase() + "!");
+            player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("gamemode.self", "%gamemode%", String.valueOf(gameMode.toString().toLowerCase())));
         } else {
             if (!source.hasPermission("betterminecraft.gamemode.others")) {
-                source.sendMessage(plugin.getPrefix() + "§cYou don't have permission to change another player's gamemode!");
+                source.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.no-permission"));
                 return;
             }
             Player target = Bukkit.getPlayer(targetString);
             if (target == null) {
-                source.sendMessage(plugin.getPrefix() + "§cPlayer not found! '" + targetString + "'");
+                source.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("gamemode.player-not-found", "%player%", String.valueOf(targetString)));
                 return;
             }
             target.setGameMode(gameMode);
-            target.sendMessage(plugin.getPrefix() + "§aYour gamemode has been changed to " + gameMode.toString().toLowerCase() + "!");
-            source.sendMessage(plugin.getPrefix() + "§aYou have changed " + target.getName() + "'s gamemode to " + gameMode.toString().toLowerCase() + "!");
+            target.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("gamemode.changed", "%gamemode%", String.valueOf(gameMode.toString().toLowerCase())));
+            source.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("gamemode.other", "%player%", String.valueOf(target.getName()), "%gamemode%", String.valueOf(gameMode.toString().toLowerCase())));
             return;
         }
     }

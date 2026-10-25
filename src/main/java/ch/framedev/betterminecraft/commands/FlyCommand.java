@@ -6,7 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jspecify.annotations.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 public class FlyCommand implements CommandExecutor {
 
@@ -17,37 +17,37 @@ public class FlyCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(@NonNull CommandSender sender, @NonNull Command command, @NonNull String label, @NonNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(args.length == 0) {
             if(!(sender.hasPermission("betterminecraft.fly"))) {
-                sender.sendMessage(plugin.getPrefix() + "§cYou do not have permission to use this command.");
+                sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.no-permission"));
                 return true;
             }
             if(!(sender instanceof Player player)) {
-                sender.sendMessage(plugin.getPrefix() + "§cYou must be a player to use this command.");
+                sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.only-player"));
                 return true;
             }
             boolean canFly = player.getAllowFlight();
             player.setAllowFlight(!canFly);
             player.setFlying(!canFly);
-            player.sendMessage(plugin.getPrefix() + "§aYour flight mode has been" + (!canFly ? "enabled" : "disabled") + ".");
+            player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("fly.self", "%state%", String.valueOf(plugin.getMessagesManager().getMessage(!canFly ? "fly.enabled" : "fly.disabled"))));
             return true;
         }
         if(args.length == 1) {
             if(!(sender.hasPermission("betterminecraft.fly.others"))) {
-                sender.sendMessage(plugin.getPrefix() + "§cYou do not have permission to use this command.");
+                sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.no-permission"));
                 return true;
             }
             Player target = Bukkit.getPlayer(args[0]);
             if(target == null) {
-                sender.sendMessage(plugin.getPrefix() + "§cPlayer not found. '" + args[0] + "'");
+                sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("fly.player-not-found", "%player%", String.valueOf(args[0])));
                 return true;
             }
             boolean canFly = target.getAllowFlight();
             target.setAllowFlight(!canFly);
             target.setFlying(!canFly);
-            target.sendMessage(plugin.getPrefix() + "§aYour flight mode has been " + (!canFly ? "enabled" : "disabled") + ".");
-            sender.sendMessage(plugin.getPrefix() + "§aYou have " + (!canFly ? "enabled" : "disabled") + " flight for " + target.getName() + ".");
+            target.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("fly.self", "%state%", String.valueOf(plugin.getMessagesManager().getMessage(!canFly ? "fly.enabled" : "fly.disabled"))));
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("fly.other", "%state%", String.valueOf(plugin.getMessagesManager().getMessage(!canFly ? "fly.enabled" : "fly.disabled")), "%player%", String.valueOf(target.getName())));
             return true;
         }
         return false;

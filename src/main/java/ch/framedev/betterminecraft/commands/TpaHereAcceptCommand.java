@@ -5,7 +5,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jspecify.annotations.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 public class TpaHereAcceptCommand implements CommandExecutor {
 
@@ -18,31 +18,31 @@ public class TpaHereAcceptCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(@NonNull CommandSender sender, @NonNull Command command, @NonNull String label, @NonNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(!command.getName().equalsIgnoreCase("tpahereaccept")) {
             return true;
         }
         if(!(sender instanceof Player player)) {
-            sender.sendMessage(plugin.getPrefix() + "§cThis command can only be used by players.");
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.only-player"));
             return true;
         }
         if(!player.hasPermission("betterminecraft.tpahere")) {
-            player.sendMessage(plugin.getPrefix() + "§cYou do not have permission to use this command.");
+            player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.no-permission"));
             return true;
         }
         if(!tpaHereCommand.hasPendingRequest(player)) {
-            player.sendMessage(plugin.getPrefix() + "§cYou have no pending teleport requests.");
+            player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("tpahereaccept.no-request"));
             return true;
         }
         Player requester = tpaHereCommand.getPendingRequest(player);
         if(requester == null) {
-            player.sendMessage(plugin.getPrefix() + "§cThe player who sent the request is no longer online.");
+            player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("tpahereaccept.offline"));
             tpaHereCommand.removePendingRequest(player);
             return true;
         }
         requester.teleport(player.getLocation());
-        requester.sendMessage(plugin.getPrefix() + "§aYou have been teleported to "+ player.getName() + ".");
-        player.sendMessage(plugin.getPrefix() + "§a" + requester.getName() + " has been teleported to you.");
+        requester.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("tpahereaccept.teleport", "%player%", String.valueOf(player.getName())));
+        player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("tpahereaccept.accepted", "%player%", String.valueOf(requester.getName())));
         tpaHereCommand.removePendingRequest(player);
         return true;
     }

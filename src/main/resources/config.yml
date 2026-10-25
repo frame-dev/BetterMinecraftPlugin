@@ -1,4 +1,6 @@
+# Prefix for all messages sent by the plugin
 prefix: '&a[&6Better&cMinecraft&a]&6 >> §r'
+# Enable or disable features of the plugin
 listeners:
   replantCrops: true
   craftingTableDiscoverRecipes: true

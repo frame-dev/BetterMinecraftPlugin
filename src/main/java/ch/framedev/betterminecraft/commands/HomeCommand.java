@@ -26,92 +26,93 @@ public class HomeCommand implements CommandExecutor, TabCompleter {
         this.plugin = plugin;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(plugin.getPrefix() + "§cYou must be a player to use this command.");
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.only-player"));
             return true;
         }
         if (command.getName().equalsIgnoreCase("sethome")) {
             if (!player.hasPermission("betterminecraft.home.set")) {
-                player.sendMessage(plugin.getPrefix() + "§cYou do not have permission to set a home.");
+                player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.no-permission"));
                 return true;
             }
             if (args.length == 0) {
                 locationManager.setLocation(player.getName() + ".home.home", player.getLocation());
-                player.sendMessage(plugin.getPrefix() + "§aHome set!");
+                player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("home.set"));
                 return true;
             }
             if (args.length == 1) {
                 String homeName = args[0];
                 locationManager.setLocation(player.getName() + ".home." + homeName, player.getLocation());
-                player.sendMessage(plugin.getPrefix() + "§aHome " + homeName + " set!");
+                player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("home.set-named", "%home%", String.valueOf(homeName)));
                 return true;
             }
         }
 
         if (command.getName().equalsIgnoreCase("home")) {
             if (!player.hasPermission("betterminecraft.home.use")) {
-                player.sendMessage(plugin.getPrefix() + "§cYou do not have permission to use homes.");
+                player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.no-permission"));
                 return true;
             }
             if (args.length == 0) {
                 Location home = locationManager.getLocation(player.getName() + ".home.home");
                 if (home == null) {
-                    player.sendMessage(plugin.getPrefix() + "§cYou do not have a home set.");
+                    player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("home.not-set"));
                     return true;
                 }
                 player.teleport(home);
-                player.sendMessage(plugin.getPrefix() + "§aTeleporting to home...");
+                player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("home.teleport"));
                 return true;
             }
             if (args.length == 1) {
                 String homeName = args[0];
                 Location home = locationManager.getLocation(player.getName() + ".home." + homeName);
                 if (home == null) {
-                    player.sendMessage(plugin.getPrefix() + "§cYou do not have a home set.");
+                    player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("home.not-set"));
                     return true;
                 }
                 player.teleport(home);
-                player.sendMessage(plugin.getPrefix() + "§aTeleporting to home...");
+                player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("home.teleport"));
                 return true;
             }
         }
         if(command.getName().equalsIgnoreCase("delhome")) {
             if(!player.hasPermission("betterminecraft.home.del")) {
-                player.sendMessage(plugin.getPrefix() + "§cYou do not have permission to delete homes.");
+                player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.no-permission"));
                 return true;
             }
             if(args.length == 0) {
                 locationManager.removeLocation(player.getName() + ".home.home");
-                player.sendMessage(plugin.getPrefix() + "§aHome deleted.");
+                player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("home.deleted"));
                 return true;
             }
             if(args.length == 1) {
                 String homeName = args[0];
                 if (!locationManager.removeLocation(player.getName() + ".home." + homeName)) {
-                    player.sendMessage(plugin.getPrefix() + "§cYou do not have a home set with that name.");
+                    player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("home.not-found"));
                     return true;
                 }
-                player.sendMessage(plugin.getPrefix() + "§aHome deleted.");
+                player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("home.deleted"));
                 return true;
             }
         }
         if(command.getName().equalsIgnoreCase("homes")) {
             if(!player.hasPermission("betterminecraft.home.list")) {
-                player.sendMessage(plugin.getPrefix() + "§cYou do not have permission to use this command.");
+                player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.no-permission"));
                 return true;
             }
-            player.sendMessage("§a=====Homes=====");
+            player.sendMessage(plugin.getMessagesManager().getMessage("home.list-header"));
             List<String> homeNames = locationManager.getLocationNames(player.getName() + ".home");
             if (homeNames == null) return true;
             for(String homeName : homeNames) {
-                TextComponent textComponent = new TextComponent("§6" + homeName);
-                textComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§aClick to teleport to home §6" + homeName).create()));
+                TextComponent textComponent = new TextComponent(plugin.getMessagesManager().getMessage("home.list-entry", "%home%", String.valueOf(homeName)));
+                textComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(plugin.getMessagesManager().getMessage("home.list-hover", "%home%", String.valueOf(homeName))).create()));
                 textComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/home " + homeName));
                 player.spigot().sendMessage(textComponent);
             }
-            player.sendMessage("§a=====Homes=====");
+            player.sendMessage(plugin.getMessagesManager().getMessage("home.list-header"));
             return true;
         }
         return false;

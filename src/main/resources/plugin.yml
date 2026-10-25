@@ -83,6 +83,13 @@ commands:
     permission: betterminecraft.feed
     usage: /feed [player]
 
+  chatclear:
+    description: Clear the chat for all players
+    permission: betterminecraft.chatclear
+    usage: /chatclear
+    aliases:
+      - cc
+
   crafthistory:
     description: View your crafting history
     permission: betterminecraft.crafthistory
@@ -158,6 +165,10 @@ commands:
     usage: /playerweather <clear|rain|reset>
 
 permissions:
+  betterminecraft.chatclear:
+    description: Allows clearing the chat for all players
+    default: op
+
   betterminecraft.admin:
     description: Allows access to BetterMinecraft admin commands
     default: op

@@ -3,10 +3,7 @@ package ch.framedev.betterminecraft.listeners;
 import ch.framedev.betterminecraft.main.BetterMinecraft;
 import ch.framedev.betterminecraft.managers.CraftHistory;
 import ch.framedev.betterminecraft.utils.DoorPhysics;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.type.Door;
@@ -404,10 +401,8 @@ public class PlayerListeners implements Listener {
 
         item.setItemMeta(itemMeta);
 
-        String message = plugin.getMessageFromConfig(
-                "warn.beforeToolBreakMessage",
-                "&cYour tool is about to break!"
-        );
+        String message = plugin.getMessagesManager().getMessage("warn.before-tool-break");
+        player.playSound(player, Sound.BLOCK_NOTE_BLOCK_BASS, 1, 1);
 
         player.sendMessage(
                 plugin.getPrefix() + message

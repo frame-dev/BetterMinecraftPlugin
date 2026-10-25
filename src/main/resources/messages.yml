@@ -1,19 +1,173 @@
+# Messages for the plugin
+# Use & color codes. Keep placeholders such as %player% unchanged.
+# Placeholders are replaced by each command with the relevant values.
+# The prefix is added to chat messages automatically; do not include it in other entries.
+# Crafting history GUI text and unprefixed list entries use their own formatting.
+# Legacy prefix and tool warning text from config.yml are imported when missing here.
+
 general:
   no-permission: "&4You do not have permission to perform this action!"
   only-player: "&4Only players can perform this action!"
+  player-not-found: "&cPlayer not found."
+  prefix: "&a[&6Better&cMinecraft&a]&6 >> &r"
+
 playertime:
   usage: "&eUsage: &7/playertime <day|night|reset>"
   day: "&aPlayer Time set to &6day!"
   night: "&aPlayer Time set to &6night!"
   reset: "&aPlayer Time reset to server time!"
+
 playerweather:
-  usage: "&eUsage: &7/playerweather <clear|rain|thunder|reset>"
+  usage: "&eUsage: &7/playerweather <clear|rain|reset>"
   clear: "&aPlayer Weather set to &6clear!"
   rain: "&aPlayer Weather set to &6rain!"
   reset: "&aPlayer Weather reset to server weather!"
+
 time:
   time-message: "&aTime set to &6%time%!"
   no-worlds: "&4No usable worlds found to set time!"
+
 weather:
-  no-worlds: "&4No usable worlds found to set time!"
+  no-worlds: "&4No usable worlds found to set weather!"
   weather-message: "&aWeather set to &6%weather%!"
+
+feed:
+  self: "&aYou have been fed."
+  other: "&aYou have fed %player%."
+  no-permission-others: "&cYou do not have permission to feed other players."
+  by-player: "&aYou have been fed by %player%."
+
+heal:
+  self: "&aYou have been healed."
+  other: "&aYou have healed %player%."
+
+home:
+  set: "&aHome set!"
+  set-named: "&aHome %home% set!"
+  not-set: "&cYou do not have a home set."
+  teleport: "&aTeleporting to home..."
+  deleted: "&aHome deleted."
+  not-found: "&cYou do not have a home set with that name."
+  list-header: "&a=====Homes====="
+  list-entry: "&6%home%"
+  list-hover: "&aClick to teleport to home &6%home%"
+
+setwarp:
+  missing-name: "&cYou have to specify a name for the warp!"
+  usage: "&c/setwarp <name>!"
+  success: "&aYou have successfully set the warp with the name '%warp%'!"
+
+delwarp:
+  usage: "&cUsage: /delwarp <warpname>"
+  success: "&aWarp with the name '%warp%' deleted successfully."
+
+warp:
+  usage: "&c/warp <name>!"
+  not-found: "&cThe warp with the name '%warp%' doesn't exist!"
+  success: "&aYou have been teleported to the warp with the name '%warp%'!"
+
+tpa:
+  usage: "&cUsage: /tpa <player>"
+  sent: "&aTeleport request sent to %player%."
+  received: "&a%player% wants to teleport to you. Type /tpaaccept to accept."
+
+tpahere:
+  usage: "&cUsage: /tpahere <player>"
+  sent: "&aTeleport request sent to %player%."
+  received: "&a%player% wants you to teleport to them. Type /tpahereaccept to accept."
+
+tpaaccept:
+  usage: "&cUsage: /tpaaccept"
+  no-request: "&cYou do not have a pending teleport request."
+  teleport: "&aTeleporting to %player%."
+  accepted: "&a%player% has accepted your teleport request."
+
+tpadeny:
+  no-request: "&cYou do not have a pending request."
+  denied: "&aYou have denied the teleport request."
+
+tpahereaccept:
+  no-request: "&cYou have no pending teleport requests."
+  offline: "&cThe player who sent the request is no longer online."
+  teleport: "&aYou have been teleported to %player%."
+  accepted: "&a%player% has been teleported to you."
+
+tpaheredeny:
+  no-request: "&cYou have no pending teleport requests."
+  offline: "&cThe player who sent the request is no longer online."
+  request-denied: "&cYour teleport request to %player% has been denied."
+  denied: "&cYou have denied the teleport request from %player%."
+
+gamemode:
+  usage: "&cUsage: /gamemode <gamemode> [player]"
+  invalid: "&cInvalid gamemode! '%gamemode%'"
+  player-not-found: "&cPlayer not found! '%player%'"
+  self: "&aYou have changed your gamemode to %gamemode%!"
+  changed: "&aYour gamemode has been changed to %gamemode%!"
+  other: "&aYou have changed %player%'s gamemode to %gamemode%!"
+
+fly:
+  self: "&aYour flight mode has been %state%."
+  enabled: "enabled"
+  disabled: "disabled"
+  player-not-found: "&cPlayer not found. '%player%'"
+  other: "&aYou have %state% flight for %player%."
+
+crafthistory:
+  disabled: "&cCrafting history is disabled."
+  no-permission-others: "&cYou do not have permission to view other players' crafting history."
+  empty: "&c%player% has no crafting history."
+  header: "&a%player%'s crafting history:"
+  last-header: "&a%player%'s last crafting:"
+  entry: "&7- %recipe% x%amount% at %date%"
+  usage: "&cInvalid argument. Usage: /crafthistory <player> <amount|last>"
+  gui:
+    title: "&aCrafting History &f%player% &7(%page%/%pages%)"
+    recipe: "&7Recipe: &f%recipe%"
+    amount: "&7Total crafted: &a%amount%x"
+    last-crafted: "&7Last crafted: &e%date%"
+    previous-page: "&ePrevious Page"
+    next-page: "&eNext Page"
+    page: "&7Page &f%page%"
+    close: "&cClose"
+    close-hint: "&7Click to close."
+    filter: "&eSort / Filter"
+    current: "&7Current:"
+    filter-hint: "&eClick to change"
+    selected-newest: "&aLast Crafted: Newest"
+    newest: "Last Crafted: Newest"
+    selected-oldest: "&aLast Crafted: Oldest"
+    oldest: "Last Crafted: Oldest"
+    selected-highest: "&aAmount: Highest"
+    highest: "Amount: Highest"
+    selected-lowest: "&aAmount: Lowest"
+    lowest: "Amount: Lowest"
+    filter-selected: "&a➤ %filter%"
+    filter-unselected: "&7  %filter%"
+
+betterminecraft:
+  version: "&aBetterMinecraft plugin version: &6%version%"
+  author: "&aAuthor: &6%authors%"
+  website: "&aWebsite: &6%website%"
+  reload-hint: "&aUse /betterminecraft reload to reload the plugin."
+  reloaded: "&aBetterMinecraft plugin reloaded."
+  no-commands: "&cNo commands available."
+  commands-header: "&aAvailable commands:"
+  help:
+    reload: "&a/betterminecraft reload - Reloads the plugin."
+    help: "&a/betterminecraft help - Shows this help message."
+    version: "&a/betterminecraft version - Shows the plugin version."
+    info: "&a/betterminecraft info - Shows plugin information."
+    commands: "&a/betterminecraft commands - Shows all available commands."
+  command-entry: "&6/%command%"
+  command-entry-description: "&6/%command% &8- &f%description%"
+  command-permission: "&8  ├ &7Permission: &f%permission%"
+  command-aliases: "&8  ├ &7Aliases: &f/%aliases%"
+  command-usage: "&8  └ &7Usage: &f%usage%"
+
+chatclear:
+  usage: "&eUsage: &7/chatclear"
+  cleared: "&aChat has been cleared by &6%player%&a."
+
+warn:
+  before-tool-break: "&cYour tool is about to break!"

@@ -7,7 +7,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jspecify.annotations.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -22,19 +22,19 @@ public class CraftHistoryCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(@NonNull CommandSender sender, @NonNull Command command, @NonNull String label, @NonNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!command.getName().equalsIgnoreCase("crafthistory")) return true;
         if(!plugin.getConfig().getBoolean("others.collectCraftingHistory")) {
-            sender.sendMessage(plugin.getPrefix() + "§cCrafting history is disabled.");
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("crafthistory.disabled"));
             return true;
         }
         if (args.length == 0) {
             if (!(sender instanceof Player player)) {
-                sender.sendMessage(plugin.getPrefix() + "§cYou must be a player to use this command.");
+                sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.only-player"));
                 return true;
             }
             if (!player.hasPermission("betterminecraft.crafthistory")) {
-                player.sendMessage(plugin.getPrefix() + "§cYou do not have permission to use this command.");
+                player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.no-permission"));
                 return true;
             }
             craftHistory.showCraftingHistory(player, player, 0);
@@ -42,13 +42,13 @@ public class CraftHistoryCommand implements CommandExecutor {
         }
         if (args.length == 1) {
             if (!sender.hasPermission("betterminecraft.crafthistory.others")) {
-                sender.sendMessage(plugin.getPrefix() + "§cYou do not have permission to view other players' crafting history.");
+                sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("crafthistory.no-permission-others"));
                 return true;
             }
             String targetName = args[0];
             Player target = plugin.getServer().getPlayer(targetName);
             if (target == null) {
-                sender.sendMessage(plugin.getPrefix() + "§cPlayer not found.");
+                sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.player-not-found"));
                 return true;
             }
             if (sender instanceof Player player) {
@@ -57,24 +57,24 @@ public class CraftHistoryCommand implements CommandExecutor {
             }
             List<CraftHistory.CraftHistoryEntry> history = craftHistory.getPlayerHistory(target);
             if (history.isEmpty()) {
-                sender.sendMessage(plugin.getPrefix() + "§c" + target.getName() + " has no crafting history.");
+                sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("crafthistory.empty", "%player%", String.valueOf(target.getName())));
                 return true;
             }
-            sender.sendMessage(plugin.getPrefix() + "§a" + target.getName() + "'s crafting history:");
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("crafthistory.header", "%player%", String.valueOf(target.getName())));
             for (CraftHistory.CraftHistoryEntry entry : history) {
-                sender.sendMessage("§7- " + entry.recipe() + " x" + entry.amount() + " at " + entry.lastCraftedFormatted());
+                sender.sendMessage(plugin.getMessagesManager().getMessage("crafthistory.entry", "%recipe%", String.valueOf(entry.recipe()), "%amount%", String.valueOf(entry.amount()), "%date%", String.valueOf(entry.lastCraftedFormatted())));
             }
             return true;
         }
         if (args.length == 2) {
             if (!sender.hasPermission("betterminecraft.crafthistory.others")) {
-                sender.sendMessage(plugin.getPrefix() + "§cYou do not have permission to view other players' crafting history.");
+                sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("crafthistory.no-permission-others"));
                 return true;
             }
             String targetName = args[0];
             Player target = plugin.getServer().getPlayer(targetName);
             if (target == null) {
-                sender.sendMessage(plugin.getPrefix() + "§cPlayer not found.");
+                sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.player-not-found"));
                 return true;
             }
             switch (args[1]) {
@@ -89,12 +89,12 @@ public class CraftHistoryCommand implements CommandExecutor {
                             CraftHistoryFilter.AMOUNT_HIGHEST
                     );
                     if (history.isEmpty()) {
-                        sender.sendMessage(plugin.getPrefix() + "§c" + target.getName() + " has no crafting history.");
+                        sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("crafthistory.empty", "%player%", String.valueOf(target.getName())));
                         return true;
                     }
-                    sender.sendMessage(plugin.getPrefix() + "§a" + target.getName() + "'s crafting history:");
+                    sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("crafthistory.header", "%player%", String.valueOf(target.getName())));
                     for (CraftHistory.CraftHistoryEntry entry : history) {
-                        sender.sendMessage("§7- " + entry.recipe() + " x" + entry.amount() + " at " + entry.lastCraftedFormatted());
+                        sender.sendMessage(plugin.getMessagesManager().getMessage("crafthistory.entry", "%recipe%", String.valueOf(entry.recipe()), "%amount%", String.valueOf(entry.amount()), "%date%", String.valueOf(entry.lastCraftedFormatted())));
                     }
                     return true;
                 }
@@ -109,17 +109,17 @@ public class CraftHistoryCommand implements CommandExecutor {
                             CraftHistoryFilter.LAST_CRAFTED_NEWEST
                     );
                     if (history.isEmpty()) {
-                        sender.sendMessage(plugin.getPrefix() + "§c" + target.getName() + " has no crafting history.");
+                        sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("crafthistory.empty", "%player%", String.valueOf(target.getName())));
                         return true;
                     }
-                    sender.sendMessage(plugin.getPrefix() + "§a" + target.getName() + "'s last crafting:");
+                    sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("crafthistory.last-header", "%player%", String.valueOf(target.getName())));
                     for (CraftHistory.CraftHistoryEntry entry : history) {
-                        sender.sendMessage("§7- " + entry.recipe() + " x" + entry.amount() + " at " + entry.lastCraftedFormatted());
+                        sender.sendMessage(plugin.getMessagesManager().getMessage("crafthistory.entry", "%recipe%", String.valueOf(entry.recipe()), "%amount%", String.valueOf(entry.amount()), "%date%", String.valueOf(entry.lastCraftedFormatted())));
                     }
                     return true;
                 }
                 default:
-                    sender.sendMessage(plugin.getPrefix() + "§cInvalid argument. Usage: /crafthistory <player> <amount|last>");
+                    sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("crafthistory.usage"));
                     return true;
             }
         }

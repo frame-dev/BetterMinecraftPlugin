@@ -106,6 +106,8 @@ public final class BetterMinecraft extends JavaPlugin {
 
         setExecutor("feed", new FeedCommand(this));
 
+        setExecutor("chatclear", new ChatClearCommand(this));
+
         setExecutor("crafthistory", new CraftHistoryCommand(this));
 
         GameModeCommand gameModeCommand = new GameModeCommand(this);
@@ -170,8 +172,7 @@ public final class BetterMinecraft extends JavaPlugin {
     }
 
     public String getPrefix() {
-        String prefix = getMessageFromConfig("prefix", "§a[§6BetterMinecraft§a]§6 >> §r");
-        return prefix.replace('&', '§');
+        return messagesManager.getMessage("general.prefix");
     }
 
     public static BetterMinecraft getInstance() {
