@@ -16,6 +16,7 @@ public final class BetterMinecraft extends JavaPlugin {
 
     private RecipesManager recipesManager;
     private CraftHistory craftHistory;
+    private BackpackCommand backpackCommand;
 
     @Override
     public void onEnable() {
@@ -29,8 +30,10 @@ public final class BetterMinecraft extends JavaPlugin {
         getLogger().info("Recipes loaded.");
 
         craftHistory = new CraftHistory();
+        backpackCommand = new BackpackCommand(this);
 
         getServer().getPluginManager().registerEvents(craftHistory, this);
+        getServer().getPluginManager().registerEvents(backpackCommand, this);
         getServer().getPluginManager().registerEvents(new PlayerListeners(this), this);
         getLogger().info("Events registered.");
 
@@ -42,6 +45,9 @@ public final class BetterMinecraft extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        if (backpackCommand != null) {
+            backpackCommand.shutdown();
+        }
         getLogger().info("Plugin disabled.");
     }
 
@@ -53,6 +59,7 @@ public final class BetterMinecraft extends JavaPlugin {
         saveConfig();
 
         messagesManager = new MessagesManager(this);
+
     }
 
     public MessagesManager getMessagesManager() {
@@ -105,6 +112,7 @@ public final class BetterMinecraft extends JavaPlugin {
         setExecutor("heal", new HealCommand(this));
 
         setExecutor("feed", new FeedCommand(this));
+        setExecutor("backpack", backpackCommand);
 
         setExecutor("chatclear", new ChatClearCommand(this));
 
@@ -177,15 +185,5 @@ public final class BetterMinecraft extends JavaPlugin {
 
     public static BetterMinecraft getInstance() {
         return instance;
-    }
-
-    public String getMessageFromConfig(String key, String defaultMessage) {
-        String message = getConfig().getString(key, defaultMessage);
-
-        if (message == null) {
-            return defaultMessage.replace('&', '§');
-        }
-
-        return message.replace('&', '§');
     }
 }

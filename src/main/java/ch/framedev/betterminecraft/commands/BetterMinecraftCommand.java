@@ -26,7 +26,7 @@ public class BetterMinecraftCommand implements CommandExecutor, TabCompleter {
             return true;
         }
         if(args.length == 0) {
-            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.version", "%version%", String.valueOf(plugin.getDescription().getVersion())));
+            sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.version", "%version%", plugin.getDescription().getVersion()));
             sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.author", "%authors%", String.valueOf(plugin.getDescription().getAuthors())));
             sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.reload-hint"));
             return true;
@@ -40,11 +40,11 @@ public class BetterMinecraftCommand implements CommandExecutor, TabCompleter {
                     return true;
                 }
                 case "version": {
-                    sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.version", "%version%", String.valueOf(plugin.getDescription().getVersion())));
+                    sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.version", "%version%", plugin.getDescription().getVersion()));
                     return true;
                 }
                 case "info": {
-                    sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.version", "%version%", String.valueOf(plugin.getDescription().getVersion())));
+                    sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.version", "%version%", plugin.getDescription().getVersion()));
                     sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.author", "%authors%", String.valueOf(plugin.getDescription().getAuthors())));
                     sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("betterminecraft.website", "%website%", String.valueOf(plugin.getDescription().getWebsite())));
                     return true;

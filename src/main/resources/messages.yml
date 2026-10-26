@@ -165,6 +165,11 @@ betterminecraft:
   command-aliases: "&8  ├ &7Aliases: &f/%aliases%"
   command-usage: "&8  └ &7Usage: &f%usage%"
 
+backpack:
+  title: "Backpack"
+  usage: "&eUsage: &7/backpack"
+  unavailable: "&cYour backpack could not be loaded. Please contact an administrator."
+
 chatclear:
   usage: "&eUsage: &7/chatclear"
   cleared: "&aChat has been cleared by &6%player%&a."

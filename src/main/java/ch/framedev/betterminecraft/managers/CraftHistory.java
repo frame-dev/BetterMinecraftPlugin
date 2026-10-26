@@ -340,8 +340,6 @@ public class CraftHistory implements Listener {
 
         } catch (IOException e) {
             plugin.getLogger().severe("Could not save craft_history.yml: " + e.getMessage());
-
-            e.printStackTrace();
         }
     }
 

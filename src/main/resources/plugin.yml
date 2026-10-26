@@ -83,6 +83,11 @@ commands:
     permission: betterminecraft.feed
     usage: /feed [player]
 
+  backpack:
+    description: Open your backpack
+    permission: betterminecraft.backpack
+    usage: /backpack
+
   chatclear:
     description: Clear the chat for all players
     permission: betterminecraft.chatclear
@@ -165,6 +170,10 @@ commands:
     usage: /playerweather <clear|rain|reset>
 
 permissions:
+  betterminecraft.backpack:
+    description: Allows opening your backpack
+    default: op
+
   betterminecraft.chatclear:
     description: Allows clearing the chat for all players
     default: op
