@@ -16,12 +16,12 @@ Twenty shaped recipes let you craft the vanilla stone tool set from decorative s
 cobblestone. Each variant covers the full tool set — sword, pickaxe, axe, shovel and hoe — and produces the
 regular vanilla `STONE_*` item:
 
-| Variant | Ingredient | Tools |
-|---|---|---|
-| Granite | `GRANITE` | Sword, Pickaxe, Axe, Shovel, Hoe |
+| Variant  | Ingredient | Tools                            |
+|----------|------------|----------------------------------|
+| Granite  | `GRANITE`  | Sword, Pickaxe, Axe, Shovel, Hoe |
 | Andesite | `ANDESITE` | Sword, Pickaxe, Axe, Shovel, Hoe |
-| Diorite | `DIORITE` | Sword, Pickaxe, Axe, Shovel, Hoe |
-| Tuff | `TUFF` | Sword, Pickaxe, Axe, Shovel, Hoe |
+| Diorite  | `DIORITE`  | Sword, Pickaxe, Axe, Shovel, Hoe |
+| Tuff     | `TUFF`     | Sword, Pickaxe, Axe, Shovel, Hoe |
 
 Recipes are registered on startup under plugin-owned `NamespacedKey`s of the form
 `betterminecraft:better_vanilla_recipe_<variant>_<tool>`, and the number of successful/failed registrations is
@@ -41,14 +41,14 @@ updated. Fence gates synchronise with directly adjacent gates on all four horizo
 
 Right-clicking a fully grown crop harvests it and drops the produce naturally. Supported crops:
 
-| Crop | Drop | Replant seed |
-|---|---|---|
-| Wheat | `WHEAT` ×1 | `WHEAT_SEEDS` |
-| Carrots | `CARROT` ×1–2 | `CARROT` |
-| Potatoes | `POTATO` ×1–2 | `POTATO` |
-| Beetroots | `BEETROOT` ×1 | `BEETROOT_SEEDS` |
-| Nether Wart | `NETHER_WART` ×1–2 | `NETHER_WART` |
-| Cocoa | `COCOA_BEANS` ×1 | `COCOA_BEANS` |
+| Crop        | Drop               | Replant seed     |
+|-------------|--------------------|------------------|
+| Wheat       | `WHEAT` ×1         | `WHEAT_SEEDS`    |
+| Carrots     | `CARROT` ×1–2      | `CARROT`         |
+| Potatoes    | `POTATO` ×1–2      | `POTATO`         |
+| Beetroots   | `BEETROOT` ×1      | `BEETROOT_SEEDS` |
+| Nether Wart | `NETHER_WART` ×1–2 | `NETHER_WART`    |
+| Cocoa       | `COCOA_BEANS` ×1   | `COCOA_BEANS`    |
 
 When `listeners.replantCrops` is enabled, one seed item is taken from the player's inventory and the crop is
 reset to age 0. If the player has no seed, the crop block is cleared instead. With the option disabled, the
@@ -63,9 +63,9 @@ listeners:
   replantCrops: true
 ```
 
-| Key | Default | Description |
-|---|---|---|
-| `listeners.replantCrops` | `true` | Consume a seed and replant the crop after right-click harvesting. |
+| Key                      | Default | Description                                                       |
+|--------------------------|---------|-------------------------------------------------------------------|
+| `listeners.replantCrops` | `true`  | Consume a seed and replant the crop after right-click harvesting. |
 
 Defaults are copied on first startup; the file is not reloaded at runtime, so restart the server after editing.
 

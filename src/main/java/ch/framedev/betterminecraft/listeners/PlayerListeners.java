@@ -1,7 +1,7 @@
 package ch.framedev.betterminecraft.listeners;
 
 import ch.framedev.betterminecraft.main.BetterMinecraft;
-import ch.framedev.betterminecraft.managers.CraftHistory;
+import ch.framedev.betterminecraft.managers.CraftHistoryManager;
 import ch.framedev.betterminecraft.utils.DoorPhysics;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -40,12 +40,12 @@ public class PlayerListeners implements Listener {
 
     private final BetterMinecraft plugin;
     private final DoorPhysics doorPhysics;
-    private final CraftHistory craftHistory;
+    private final CraftHistoryManager craftHistoryManager;
 
     public PlayerListeners(BetterMinecraft plugin) {
         this.plugin = plugin;
         this.doorPhysics = new DoorPhysics();
-        this.craftHistory = plugin.getCraftHistory();
+        this.craftHistoryManager = plugin.getCraftHistory();
         this.toolBreakWarningKey = new NamespacedKey(
                 plugin,
                 "tool_break_warning"
@@ -124,7 +124,7 @@ public class PlayerListeners implements Listener {
 
         Recipe recipe = event.getRecipe();
 
-        craftHistory.addHistory(player, recipe);
+        craftHistoryManager.addHistory(player, recipe);
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

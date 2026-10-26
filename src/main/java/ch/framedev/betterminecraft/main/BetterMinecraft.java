@@ -2,7 +2,7 @@ package ch.framedev.betterminecraft.main;
 
 import ch.framedev.betterminecraft.commands.*;
 import ch.framedev.betterminecraft.listeners.PlayerListeners;
-import ch.framedev.betterminecraft.managers.CraftHistory;
+import ch.framedev.betterminecraft.managers.CraftHistoryManager;
 import ch.framedev.betterminecraft.managers.MessagesManager;
 import ch.framedev.betterminecraft.managers.RecipesManager;
 import org.bukkit.command.PluginCommand;
@@ -12,10 +12,11 @@ public final class BetterMinecraft extends JavaPlugin {
 
     private static BetterMinecraft instance;
 
+    // Managers
     private MessagesManager messagesManager;
-
     private RecipesManager recipesManager;
-    private CraftHistory craftHistory;
+    private CraftHistoryManager craftHistoryManager;
+
     private BackpackCommand backpackCommand;
 
     @Override
@@ -29,10 +30,11 @@ public final class BetterMinecraft extends JavaPlugin {
         recipesManager.init();
         getLogger().info("Recipes loaded.");
 
-        craftHistory = new CraftHistory();
+        craftHistoryManager = new CraftHistoryManager();
         backpackCommand = new BackpackCommand(this);
 
-        getServer().getPluginManager().registerEvents(craftHistory, this);
+        // Register events
+        getServer().getPluginManager().registerEvents(craftHistoryManager, this);
         getServer().getPluginManager().registerEvents(backpackCommand, this);
         getServer().getPluginManager().registerEvents(new PlayerListeners(this), this);
         getLogger().info("Events registered.");
@@ -171,8 +173,8 @@ public final class BetterMinecraft extends JavaPlugin {
         command.setTabCompleter(completer);
     }
 
-    public CraftHistory getCraftHistory() {
-        return craftHistory;
+    public CraftHistoryManager getCraftHistory() {
+        return craftHistoryManager;
     }
 
     public RecipesManager getRecipesManager() {

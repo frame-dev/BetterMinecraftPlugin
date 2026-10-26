@@ -26,7 +26,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-public class CraftHistory implements Listener {
+public class CraftHistoryManager implements Listener {
 
     private static final int INVENTORY_SIZE = 54;
     private static final int PAGE_SIZE = 45;
@@ -41,7 +41,7 @@ public class CraftHistory implements Listener {
     private final File craftHistoryFile;
     private final FileConfiguration craftHistoryConfig;
 
-    public CraftHistory() {
+    public CraftHistoryManager() {
         this.plugin = BetterMinecraft.getInstance();
 
         craftHistoryFile = new File(plugin.getDataFolder(), "craft_history.yml");

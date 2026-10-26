@@ -1,7 +1,7 @@
 package ch.framedev.betterminecraft.commands;
 
 import ch.framedev.betterminecraft.main.BetterMinecraft;
-import ch.framedev.betterminecraft.managers.CraftHistory;
+import ch.framedev.betterminecraft.managers.CraftHistoryManager;
 import ch.framedev.betterminecraft.managers.CraftHistoryFilter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,11 +14,11 @@ import java.util.List;
 public class CraftHistoryCommand implements CommandExecutor {
 
     private final BetterMinecraft plugin;
-    private final CraftHistory craftHistory;
+    private final CraftHistoryManager craftHistoryManager;
 
     public CraftHistoryCommand(BetterMinecraft plugin) {
         this.plugin = plugin;
-        this.craftHistory = plugin.getCraftHistory();
+        this.craftHistoryManager = plugin.getCraftHistory();
     }
 
     @Override
@@ -37,7 +37,7 @@ public class CraftHistoryCommand implements CommandExecutor {
                 player.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("general.no-permission"));
                 return true;
             }
-            craftHistory.showCraftingHistory(player, player, 0);
+            craftHistoryManager.showCraftingHistory(player, player, 0);
             return true;
         }
         if (args.length == 1) {
@@ -52,16 +52,16 @@ public class CraftHistoryCommand implements CommandExecutor {
                 return true;
             }
             if (sender instanceof Player player) {
-                craftHistory.showCraftingHistory(player, target, 0);
+                craftHistoryManager.showCraftingHistory(player, target, 0);
                 return true;
             }
-            List<CraftHistory.CraftHistoryEntry> history = craftHistory.getPlayerHistory(target);
+            List<CraftHistoryManager.CraftHistoryEntry> history = craftHistoryManager.getPlayerHistory(target);
             if (history.isEmpty()) {
                 sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("crafthistory.empty", "%player%", String.valueOf(target.getName())));
                 return true;
             }
             sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("crafthistory.header", "%player%", String.valueOf(target.getName())));
-            for (CraftHistory.CraftHistoryEntry entry : history) {
+            for (CraftHistoryManager.CraftHistoryEntry entry : history) {
                 sender.sendMessage(plugin.getMessagesManager().getMessage("crafthistory.entry", "%recipe%", String.valueOf(entry.recipe()), "%amount%", String.valueOf(entry.amount()), "%date%", String.valueOf(entry.lastCraftedFormatted())));
             }
             return true;
@@ -80,11 +80,11 @@ public class CraftHistoryCommand implements CommandExecutor {
             switch (args[1]) {
                 case "amount": {
                     if(sender instanceof Player player) {
-                        craftHistory.showCraftingHistory(player, target.getUniqueId(), targetName, 0, CraftHistoryFilter.AMOUNT_HIGHEST);
+                        craftHistoryManager.showCraftingHistory(player, target.getUniqueId(), targetName, 0, CraftHistoryFilter.AMOUNT_HIGHEST);
                         return true;
                     }
-                    List<CraftHistory.CraftHistoryEntry> history = craftHistory.getPlayerHistory(target);
-                    craftHistory.sortHistory(
+                    List<CraftHistoryManager.CraftHistoryEntry> history = craftHistoryManager.getPlayerHistory(target);
+                    craftHistoryManager.sortHistory(
                             history,
                             CraftHistoryFilter.AMOUNT_HIGHEST
                     );
@@ -93,18 +93,18 @@ public class CraftHistoryCommand implements CommandExecutor {
                         return true;
                     }
                     sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("crafthistory.header", "%player%", String.valueOf(target.getName())));
-                    for (CraftHistory.CraftHistoryEntry entry : history) {
+                    for (CraftHistoryManager.CraftHistoryEntry entry : history) {
                         sender.sendMessage(plugin.getMessagesManager().getMessage("crafthistory.entry", "%recipe%", String.valueOf(entry.recipe()), "%amount%", String.valueOf(entry.amount()), "%date%", String.valueOf(entry.lastCraftedFormatted())));
                     }
                     return true;
                 }
                 case "last": {
                     if(sender instanceof Player player) {
-                        craftHistory.showCraftingHistory(player, target.getUniqueId(), targetName, 0, CraftHistoryFilter.LAST_CRAFTED_NEWEST);
+                        craftHistoryManager.showCraftingHistory(player, target.getUniqueId(), targetName, 0, CraftHistoryFilter.LAST_CRAFTED_NEWEST);
                         return true;
                     }
-                    List<CraftHistory.CraftHistoryEntry> history = craftHistory.getPlayerHistory(target);
-                    craftHistory.sortHistory(
+                    List<CraftHistoryManager.CraftHistoryEntry> history = craftHistoryManager.getPlayerHistory(target);
+                    craftHistoryManager.sortHistory(
                             history,
                             CraftHistoryFilter.LAST_CRAFTED_NEWEST
                     );
@@ -113,7 +113,7 @@ public class CraftHistoryCommand implements CommandExecutor {
                         return true;
                     }
                     sender.sendMessage(plugin.getPrefix() + plugin.getMessagesManager().getMessage("crafthistory.last-header", "%player%", String.valueOf(target.getName())));
-                    for (CraftHistory.CraftHistoryEntry entry : history) {
+                    for (CraftHistoryManager.CraftHistoryEntry entry : history) {
                         sender.sendMessage(plugin.getMessagesManager().getMessage("crafthistory.entry", "%recipe%", String.valueOf(entry.recipe()), "%amount%", String.valueOf(entry.amount()), "%date%", String.valueOf(entry.lastCraftedFormatted())));
                     }
                     return true;
