@@ -168,6 +168,10 @@ commands:
       - plweather
       - player-weather
     usage: /playerweather <clear|rain|reset>
+  back:
+    description: Teleport back to your death location
+    permission: betterminecraft.back
+    usage: /back
 
 permissions:
   betterminecraft.backpack:
@@ -300,4 +304,7 @@ permissions:
     default: op
   betterminecraft.playerweather:
     description: Allows changing the weather for a player
+    default: op
+  betterminecraft.back:
+    description: Allows teleporting back to your death location
     default: op

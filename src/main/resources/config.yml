@@ -1,5 +1,5 @@
 # Prefix for all messages sent by the plugin
-prefix: '&a[&6Better&cMinecraft&a]&6 >> §r'
+prefix: "&a[&l&6Better&cMinecraft&a&r]&7 >> &r"
 # Enable or disable features of the plugin
 listeners:
   replantCrops: true

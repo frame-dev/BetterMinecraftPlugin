@@ -9,16 +9,16 @@ general:
   no-permission: "&4You do not have permission to perform this action!"
   only-player: "&4Only players can perform this action!"
   player-not-found: "&cPlayer not found."
-  prefix: "&a[&6Better&cMinecraft&a]&6 >> &r"
+  prefix: "&a[&l&6Better&cMinecraft&a&r]&7 >> &r"
 
 playertime:
-  usage: "&eUsage: &7/playertime <day|night|reset>"
+  usage: "&cUsage: &7/playertime <day|night|reset>"
   day: "&aPlayer Time set to &6day!"
   night: "&aPlayer Time set to &6night!"
   reset: "&aPlayer Time reset to server time!"
 
 playerweather:
-  usage: "&eUsage: &7/playerweather <clear|rain|reset>"
+  usage: "&cUsage: &7/playerweather <clear|rain|reset>"
   clear: "&aPlayer Weather set to &6clear!"
   rain: "&aPlayer Weather set to &6rain!"
   reset: "&aPlayer Weather reset to server weather!"
@@ -33,17 +33,17 @@ weather:
 
 feed:
   self: "&aYou have been fed."
-  other: "&aYou have fed %player%."
+  other: "&aYou have fed &6%player%&a."
   no-permission-others: "&cYou do not have permission to feed other players."
-  by-player: "&aYou have been fed by %player%."
+  by-player: "&aYou have been fed by &6%player%&a."
 
 heal:
   self: "&aYou have been healed."
-  other: "&aYou have healed %player%."
+  other: "&aYou have healed &6%player%&a."
 
 home:
   set: "&aHome set!"
-  set-named: "&aHome %home% set!"
+  set-named: "&aHome &6%home% &aset!"
   not-set: "&cYou do not have a home set."
   teleport: "&aTeleporting to home..."
   deleted: "&aHome deleted."
@@ -54,32 +54,32 @@ home:
 
 setwarp:
   missing-name: "&cYou have to specify a name for the warp!"
-  usage: "&c/setwarp <name>!"
-  success: "&aYou have successfully set the warp with the name '%warp%'!"
+  usage: "&cUsage: &7/setwarp <name>"
+  success: "&aYou have successfully set the warp with the name '&6%warp%&a'!"
 
 delwarp:
-  usage: "&cUsage: /delwarp <warpname>"
-  success: "&aWarp with the name '%warp%' deleted successfully."
+  usage: "&cUsage: &7/delwarp <warpname>"
+  success: "&aWarp with the name '&6%warp%&a' deleted successfully."
 
 warp:
-  usage: "&c/warp <name>!"
-  not-found: "&cThe warp with the name '%warp%' doesn't exist!"
-  success: "&aYou have been teleported to the warp with the name '%warp%'!"
+  usage: "&cUsage: &7/warp <name>"
+  not-found: "&cThe warp with the name '&6%warp%&c' doesn't exist!"
+  success: "&aYou have been teleported to the warp with the name '&6%warp%&a'!"
 
 tpa:
-  usage: "&cUsage: /tpa <player>"
-  sent: "&aTeleport request sent to %player%."
+  usage: "&cUsage: &7/tpa <player>"
+  sent: "&aTeleport request sent to &6%player%."
   received: "&a%player% wants to teleport to you. Type /tpaaccept to accept."
 
 tpahere:
-  usage: "&cUsage: /tpahere <player>"
-  sent: "&aTeleport request sent to %player%."
+  usage: "&cUsage: &7/tpahere <player>"
+  sent: "&aTeleport request sent to &6%player%."
   received: "&a%player% wants you to teleport to them. Type /tpahereaccept to accept."
 
 tpaaccept:
-  usage: "&cUsage: /tpaaccept"
+  usage: "&cUsage: &7/tpaaccept"
   no-request: "&cYou do not have a pending teleport request."
-  teleport: "&aTeleporting to %player%."
+  teleport: "&aTeleporting to &6%player%."
   accepted: "&a%player% has accepted your teleport request."
 
 tpadeny:
@@ -89,28 +89,28 @@ tpadeny:
 tpahereaccept:
   no-request: "&cYou have no pending teleport requests."
   offline: "&cThe player who sent the request is no longer online."
-  teleport: "&aYou have been teleported to %player%."
+  teleport: "&aYou have been teleported to &6%player%."
   accepted: "&a%player% has been teleported to you."
 
 tpaheredeny:
   no-request: "&cYou have no pending teleport requests."
   offline: "&cThe player who sent the request is no longer online."
-  request-denied: "&cYour teleport request to %player% has been denied."
-  denied: "&cYou have denied the teleport request from %player%."
+  request-denied: "&cYour teleport request to &6%player% &chas been denied."
+  denied: "&cYou have denied the teleport request from &6%player%."
 
 gamemode:
-  usage: "&cUsage: /gamemode <gamemode> [player]"
-  invalid: "&cInvalid gamemode! '%gamemode%'"
-  player-not-found: "&cPlayer not found! '%player%'"
-  self: "&aYou have changed your gamemode to %gamemode%!"
-  changed: "&aYour gamemode has been changed to %gamemode%!"
-  other: "&aYou have changed %player%'s gamemode to %gamemode%!"
+  usage: "&cUsage: &7/gamemode <gamemode> [player]"
+  invalid: "&cInvalid gamemode! &6'%gamemode%'"
+  player-not-found: "&cPlayer not found! &6'%player%'"
+  self: "&aYou have changed your gamemode to &6%gamemode%&a!"
+  changed: "&aYour gamemode has been changed to &6%gamemode%&a!"
+  other: "&aYou have changed &6%player%'s &agamemode to &6%gamemode%&a!"
 
 fly:
   self: "&aYour flight mode has been %state%."
   enabled: "enabled"
   disabled: "disabled"
-  player-not-found: "&cPlayer not found. '%player%'"
+  player-not-found: "&cPlayer not found. &6'%player%'"
   other: "&aYou have %state% flight for %player%."
 
 crafthistory:
@@ -149,16 +149,16 @@ betterminecraft:
   version: "&aBetterMinecraft plugin version: &6%version%"
   author: "&aAuthor: &6%authors%"
   website: "&aWebsite: &6%website%"
-  reload-hint: "&aUse /betterminecraft reload to reload the plugin."
+  reload-hint: "&aUse &6/betterminecraft reload &ato reload the plugin."
   reloaded: "&aBetterMinecraft plugin reloaded."
   no-commands: "&cNo commands available."
   commands-header: "&aAvailable commands:"
   help:
-    reload: "&a/betterminecraft reload - Reloads the plugin."
-    help: "&a/betterminecraft help - Shows this help message."
-    version: "&a/betterminecraft version - Shows the plugin version."
-    info: "&a/betterminecraft info - Shows plugin information."
-    commands: "&a/betterminecraft commands - Shows all available commands."
+    reload: "&6/betterminecraft reload &a- Reloads the plugin."
+    help: "&6/betterminecraft help &a- Shows this help message."
+    version: "&6/betterminecraft version &a- Shows the plugin version."
+    info: "&6/betterminecraft info &a- Shows plugin information."
+    commands: "&6/betterminecraft commands &a- Shows all available commands."
   command-entry: "&6/%command%"
   command-entry-description: "&6/%command% &8- &f%description%"
   command-permission: "&8  ├ &7Permission: &f%permission%"
@@ -167,12 +167,18 @@ betterminecraft:
 
 backpack:
   title: "Backpack"
-  usage: "&eUsage: &7/backpack"
+  usage: "&cUsage: &7/backpack"
   unavailable: "&cYour backpack could not be loaded. Please contact an administrator."
 
 chatclear:
-  usage: "&eUsage: &7/chatclear"
+  usage: "&cUsage: &7/chatclear"
   cleared: "&aChat has been cleared by &6%player%&a."
 
 warn:
   before-tool-break: "&cYour tool is about to break!"
+
+back:
+  usage: "&cUsage: &7/back"
+  no-location: "&cYou have no death location to return to."
+  teleported: "&aYou have been teleported back to your Death location."
+  death-location-saved: "&aYour death location has been saved. Use &6/back &ato return to it."

@@ -12,8 +12,8 @@ Spigot API — no client mods, no custom launcher, no resource pack, and no NMS/
 
 ### Stone-variant tool recipes
 
-Twenty shaped recipes let you craft the vanilla stone tool set from decorative stone variants instead of
-cobblestone. Each variant covers the full tool set — sword, pickaxe, axe, shovel and hoe — and produces the
+Twenty-shaped recipes let you craft the vanilla stone tool set from decorative stone variants instead of
+cobblestone. Each variant covers the full tool set — sword, pickaxe, axe, shovel, and hoe — and produces the
 regular vanilla `STONE_*` item:
 
 | Variant  | Ingredient | Tools                            |
@@ -31,11 +31,11 @@ written to the server log.
 every registered recipe and unlocks the ones they currently have the materials for, so the recipes show up in
 the vanilla recipe book.
 
-### Double door and fence gate synchronisation
+### Double door and fence gate synchronization
 
 Opening one half of a double door opens its partner. A neighbouring door counts as a partner when it is the
 same block type, faces the same direction, and has the opposite hinge side. Both the upper and lower halves are
-updated. Fence gates synchronise with directly adjacent gates on all four horizontal faces.
+updated. Fence gates synchronize with directly adjacent gates on all four horizontal faces.
 
 ### Right-click crop harvesting
 
@@ -87,24 +87,10 @@ project version into `plugin.yml`.
 2. Drop it into your server's `plugins/` directory.
 3. Start the server — `config.yml` is generated automatically.
 
-## Project layout
-
-```
-src/main/java/ch/framedev/betterminecraft/
-  BetterMinecraft.java    # JavaPlugin entry point, wires up manager and listeners
-  RecipesManager.java     # Registers stone-variant recipes, inventory-based craftability check
-  PlayerListeners.java    # PlayerInteractEvent: recipe discovery, doors/gates, crop harvesting
-  DoorPhysics.java        # Double door / fence gate synchronisation logic
-src/main/resources/
-  config.yml
-  plugin.yml
-todo.txt                  # Long-form roadmap for the full Vanilla+ feature set
-```
-
 ## Roadmap
 
 `todo.txt` tracks the planned scope in detail — graves, homes and waystones, skills, quests, custom mobs and
-mini-bosses, world events, seasons, backpacks, claims and more, along with a migration checklist for
+mini-bosses, world events, seasons, backpacks, claims, and more, along with a migration checklist for
 Minecraft 26.2 (Java 25, Spigot API 26.2). Everything currently implemented lives in the Features section above.
 
 ## Author

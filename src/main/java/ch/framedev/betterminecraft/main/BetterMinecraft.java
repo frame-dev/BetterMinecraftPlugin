@@ -18,6 +18,7 @@ public final class BetterMinecraft extends JavaPlugin {
     private CraftHistoryManager craftHistoryManager;
 
     private BackpackCommand backpackCommand;
+    private BackCommand backCommand;
 
     @Override
     public void onEnable() {
@@ -33,13 +34,15 @@ public final class BetterMinecraft extends JavaPlugin {
         craftHistoryManager = new CraftHistoryManager();
         backpackCommand = new BackpackCommand(this);
 
+        registerCommands();
+
         // Register events
         getServer().getPluginManager().registerEvents(craftHistoryManager, this);
         getServer().getPluginManager().registerEvents(backpackCommand, this);
         getServer().getPluginManager().registerEvents(new PlayerListeners(this), this);
+        getServer().getPluginManager().registerEvents(backCommand, this);
         getLogger().info("Events registered.");
 
-        registerCommands();
         getLogger().info("Commands registered.");
 
         getLogger().info("Plugin enabled.");
@@ -114,7 +117,6 @@ public final class BetterMinecraft extends JavaPlugin {
         setExecutor("heal", new HealCommand(this));
 
         setExecutor("feed", new FeedCommand(this));
-        setExecutor("backpack", backpackCommand);
 
         setExecutor("chatclear", new ChatClearCommand(this));
 
@@ -142,6 +144,12 @@ public final class BetterMinecraft extends JavaPlugin {
         // Playerweather Command
         PlayerWeatherCommand playerWeatherCommand = new PlayerWeatherCommand(this);
         setExecutor("playerweather", playerWeatherCommand);
+
+        setExecutor("backpack", backpackCommand);
+
+        // Back Command
+        this.backCommand = new BackCommand(this);
+        setExecutor("back", backCommand);
 
         // Main Command
         BetterMinecraftCommand betterMinecraftCommand = new BetterMinecraftCommand(this);
@@ -182,7 +190,7 @@ public final class BetterMinecraft extends JavaPlugin {
     }
 
     public String getPrefix() {
-        return messagesManager.getMessage("general.prefix");
+        return messagesManager.getMessage("general.prefix").replace(">>", "»");
     }
 
     public static BetterMinecraft getInstance() {

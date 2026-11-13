@@ -310,7 +310,7 @@ public class PlayerListeners implements Listener {
         switch (cropType) {
             case WHEAT -> {
                 dropItem(block, Material.WHEAT, 1);
-                dropItem(block, Material.WHEAT_SEEDS, randomAmount(0, 3));
+                dropItem(block, Material.WHEAT_SEEDS, randomAmount(1, 3));
             }
 
             case CARROTS -> dropItem(block, Material.CARROT, randomAmount(2, 5));
@@ -319,7 +319,7 @@ public class PlayerListeners implements Listener {
 
             case BEETROOTS -> {
                 dropItem(block, Material.BEETROOT, 1);
-                dropItem(block, Material.BEETROOT_SEEDS, randomAmount(0, 3));
+                dropItem(block, Material.BEETROOT_SEEDS, randomAmount(1, 3));
             }
 
             case NETHER_WART -> dropItem(block, Material.NETHER_WART, randomAmount(2, 4));
